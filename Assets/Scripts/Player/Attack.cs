@@ -19,7 +19,7 @@ public class Attack : MonoBehaviour {
 	void Update () {
         if (timeBetweenAttack <= 0)
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetButton("Attack"))
             {
                 Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemy);
                 for (int i = 0; i < enemyColliders.Length; i++)

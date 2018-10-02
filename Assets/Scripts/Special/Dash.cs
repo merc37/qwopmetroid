@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Dash : MonoBehaviour {
 
-    private int leftDown;
+    private int HorizontalDown;
     private int rightDown;
 
     public float dashSpeed;
@@ -30,45 +30,28 @@ public class Dash : MonoBehaviour {
 
     void DashExecute()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && dashTime < Time.time)
+        if (Input.GetButtonDown("Horizontal") && dashTime < Time.time)
         {
+            float direction = Input.GetAxisRaw("Horizontal");
             dashTime = Time.time + dashCooldownTime;
-            leftDown++;
+            HorizontalDown++;
             Instantiate(dashEffect, rb.position, Quaternion.identity);
-            DashPlayer();
-        }
-
-        else if (Input.GetKeyDown(KeyCode.RightArrow) && dashTime < Time.time)
-        {
-            dashTime = Time.time + dashCooldownTime;
-            rightDown++;
-            Instantiate(dashEffect, rb.position, Quaternion.identity);
-            DashPlayer();
+            DashPlayer(direction);
         }
     }
 
-    void DashPlayer()
+    void DashPlayer(float direction)
     {
-        if (leftDown == 1)
+        if (HorizontalDown == 1)
         {
-            rb.velocity = Vector2.left * dashSpeed;
+            rb.velocity = new Vector2(direction, rb.velocity.y) * dashSpeed;
             shakeScript.shouldShake = true;
             Debug.Log("Dash LEFT");
-        }
-
-
-        else if (rightDown == 1)
-        {
-            rb.velocity = Vector2.right * dashSpeed;
-            shakeScript.shouldShake = true;
-            Debug.Log("Dash Right");
         }
     }
 
     void ResetDash()
     {
-        leftDown = 0;
-        rightDown = 0;
-        rb.velocity = Vector2.zero;
+        HorizontalDown = 0;
     }
 }
