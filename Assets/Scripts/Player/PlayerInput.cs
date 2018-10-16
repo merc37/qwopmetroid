@@ -2,21 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour {
+public class PlayerInput : MonoBehaviour
+{ 
+    public FloatReference HorizontalInputValue;
+    public BoolVariable HorizontalInputState;
+    public BoolVariable InventoryInputState;
 
-    protected float moveInput;
-    public float speed;
+    private void Start()
+    {
+        HorizontalInputState.boolState = false;
+        InventoryInputState.boolState = false;
+    }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	protected virtual void FixedUpdate () {
+    private void FixedUpdate()
+    {
+        HorizontalInputValue.Variable.Value = Input.GetAxisRaw("Horizontal");
 
-        moveInput = Input.GetAxisRaw("Horizontal");
- 
+        if (Input.GetButton("Horizontal") || Input.GetButtonDown("Horizontal"))
+        {
+            HorizontalInputState.boolState = true;
+        }
+        else if(Input.GetButtonUp("Horizontal"))
+        {
+            HorizontalInputState.boolState = false;
+        }
+        else
+        {
+            HorizontalInputState.boolState = false;
+        }
+
+        if (Input.GetButtonDown("Inventory"))
+        {
+            InventoryInputState.boolState = true;
+        }
+        else
+        {
+            InventoryInputState.boolState = false;
+        }
+
+
     }
 
 }

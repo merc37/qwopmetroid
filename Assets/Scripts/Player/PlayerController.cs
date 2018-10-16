@@ -4,51 +4,65 @@ using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : PlayerInput {
+public class PlayerController : MonoBehaviour {
 
-    public Transform groundCheck;
+    public FloatReference speed;
+    public FloatReference moveInputX;
+
+    public BoolVariable moveInputedX;
+    public BoolVariable isGrounded;
+
     public float checkRadius;
+
     public LayerMask whatIsGround;
-
-    private bool facingRight = true;
-
-    internal bool isGrounded;
+    public Transform groundCheck;
 
     protected Rigidbody2D rb2d;
 
+    private bool facingRight = true;
 
-    void Start ()
+    void Awake ()
     {
         rb2d = GetComponent<Rigidbody2D>();
-    }
-	
-	protected override void FixedUpdate ()
-    {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
-
-        moveInput = 0;
-
-        base.FixedUpdate();
-
-        rb2d.velocity = new Vector2(moveInput * speed, rb2d.velocity.y);
-
-        if (facingRight == false && moveInput > 0)
-        {
-            Flip();
-        }
-        else if (facingRight == true && moveInput < 0)
-        {
-            Flip();
-        }
-
     }
 
     private void Update()
     {
-
     }
 
-    void Flip()
+    private void FixedUpdate ()
+    {
+        
+        if (moveInputedX.boolState)
+        {
+            Move(moveInputX.Value, speed);
+            //Debug.Log("moving: "+ moveInputX.Value);
+        }
+        else
+        {
+            Move(0, speed);
+            //Debug.Log("stillX: " + moveInputX.Value);
+        }
+        
+    }
+
+    protected void Move(float movementInput, FloatReference speedToMove)
+    {
+        isGrounded.boolState = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
+
+        rb2d.velocity = new Vector2(movementInput * speedToMove.Value, rb2d.velocity.y);
+
+        if (facingRight == false && movementInput > 0)
+        {
+            Flip();
+        }
+        else if (facingRight == true && movementInput < 0)
+        {
+            Flip();
+        }
+    }
+
+    private void Flip()
     {
         facingRight = !facingRight;
         Vector3 scaler = transform.localScale;

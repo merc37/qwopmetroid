@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Shop
+  - PickUp
+  - ItemPickUp
   layers:
   - Default
   - TransparentFX

@@ -6,21 +6,22 @@ public class Enemy : MonoBehaviour {
 
     public float health;
 
-	// Use this for initialization
+    private float initialEnemyHealth;
+
 	void Start () {
-		
+        initialEnemyHealth = health;
 	}
 	
-	// Update is called once per frame
 	void Update () {
         if (health <= 0)
         {
+            health = initialEnemyHealth;
             Destroy(gameObject);
         }
 	}
-    public void DamageTaken(float damage)
+    public void DamageTaken(float dmgFromPlayer)
     {
-        health -= damage;
+        health -= dmgFromPlayer;
         Debug.Log("DamageTaken");
     }
 }

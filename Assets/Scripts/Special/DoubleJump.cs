@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoubleJump : MonoBehaviour {
+public class DoubleJump : MonoBehaviour
+{
+    public BoolVariable grounded;
 
     private int extraJumps;
     public int totalExtraJumps;
@@ -15,29 +17,28 @@ public class DoubleJump : MonoBehaviour {
     public float fallMultiplyer = 2.5f;
     public float lowMultiplyer = 2.0f;
 
-    private PlayerController playerController;
     private Rigidbody2D rb;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerController = GetComponent<PlayerController>();
     }
 
-    void Start ()
+    void Start()
     {
         ResetJump();
-	}
-	
-	void Update () {
+    }
+
+    void Update()
+    {
         FastFall();
         DoubleJumpExecute();
-	}
+    }
 
     void DoubleJumpExecute()
     {
- 
-        if (playerController.isGrounded == true)
+
+        if (grounded.boolState)
         {
             ResetJump();
             //Debug.Log("isGrounded : " + isGrounded);
@@ -52,7 +53,7 @@ public class DoubleJump : MonoBehaviour {
 
         if (Input.GetButton("Jump") && isJumping == true)
         {
-            if(jumpTimeCounter > 0)
+            if (jumpTimeCounter > 0)
             {
                 rb.velocity = Vector2.up * jumpSpeed;
                 jumpTimeCounter -= Time.deltaTime;

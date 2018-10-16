@@ -4,36 +4,45 @@ using UnityEngine;
 
 public class SpecialMoves : MonoBehaviour {
 
-    public Dash dashAbility;
-    public DoubleJump doubleJumpAbility;
-    public PlayerController playerController;
+    public GameObject player;
 
-    void Start () {
-        dashAbility = GetComponent<Dash>();
-        playerController = GetComponent<PlayerController>();
-        doubleJumpAbility = GetComponent<DoubleJump>();
+    private Dash dashAbility;
+    private DoubleJump doubleJumpAbility;
+    
+    //private bool canDoubleJump = false;
+
+    private void Awake()
+    {
+        dashAbility = player.GetComponent<Dash>();
+        doubleJumpAbility = player.GetComponent<DoubleJump>();
 
         dashAbility.enabled = false;
-        playerController.enabled = true;
+        doubleJumpAbility.enabled = true;
+ 
+    }
+
+    void Start () {
 	}
 	
 	void Update () {
-        CheckSpecialActivate();
-        CheckSpecialActivate();
+        ChecktToActivate();
 	}
 
-    void CheckSpecialActivate()
+    protected void ChecktToActivate()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetButton("Dash"))
         {
             dashAbility.enabled = true;
-            playerController.enabled = false;
         }
         else
         {
             dashAbility.enabled = false;
-            playerController.enabled = true;
         }
+
+        /*if (canDoubleJump)
+          { 
+              
+          }*/
     }
 
 }
