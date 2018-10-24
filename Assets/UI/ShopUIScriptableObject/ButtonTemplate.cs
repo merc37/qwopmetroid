@@ -35,10 +35,10 @@ public class ButtonTemplate : MonoBehaviour
     {
         duplicateItem = currentItem;
 
-        if (duplicateItem.stackable == true)
+        if (duplicateItem.stackable == true && currentShop.shopList.ItemAndStackNumber(duplicateItem).y != 0)
         {
             itemIsStackable = true;
-            stackItem.text = duplicateItem.itemStack.ToString();
+            stackItem.text = currentShop.shopList.ItemAndStackNumber(duplicateItem).y.ToString();
             stackItem.enabled = true;
         }
         else

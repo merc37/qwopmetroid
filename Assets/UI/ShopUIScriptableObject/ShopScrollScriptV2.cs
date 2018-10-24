@@ -139,11 +139,15 @@ public class ShopScrollScriptV2 : MonoBehaviour {
         //Debug.Log(itemToAdd.name + "added");
         if (shopList.itemsList.Contains(itemToAdd) && itemToAdd.stackable == true)
         {
+            shopList.IncItemStackNumber(itemToAdd);
+            Debug.Log("from Add stackable");
             //itemToAdd.itemStack++;
         }
         else
         {
             shopList.itemsList.Add(itemToAdd);
+            shopList.AddItemToStack(itemToAdd);
+            Debug.Log("from did not exist before");
         }
     }
 
@@ -156,20 +160,30 @@ public class ShopScrollScriptV2 : MonoBehaviour {
             {
                 if (itemToRemove.stackable == true)
                 {
-                    if (itemToRemove.itemStack > 1)
-                    {     
-                        itemToRemove.itemStack--;
-                        Debug.Log("itemonlystackamount changed" + item.itemName + item.itemStack.ToString());
+                    if(shopList.DecItemStackNumber(itemToRemove)) {
+                        float currentStackAmount = shopList.ItemAndStackNumber(item).y;
+                        if(currentStackAmount <= 0) {
+                            shopList.itemsList.RemoveAt(i);
+                            shopList.RemoveItemFromStack(itemToRemove);
+                            Debug.Log("from Remove stackable" + shopList.ItemAndStackNumber(itemToRemove).y);
+                        }
                     }
-                    else if(itemToRemove.itemStack <= 1)
-                    {
-                        shopList.itemsList.RemoveAt(i);
-                        Debug.Log("ItemRemoved From because stack 0 or 1");
-                    }
+                    //if (itemToRemove.itemStack > 1)
+                    //{     
+                    //    itemToRemove.itemStack--;
+                    //    Debug.Log("itemonlystackamount changed" + item.itemName + item.itemStack.ToString());
+                    //}
+                    //else if(itemToRemove.itemStack <= 1)
+                    //{
+                    //    shopList.itemsList.RemoveAt(i);
+                    //    Debug.Log("ItemRemoved From because stack 0 or 1");
+                    //}
                 }
                 else
                 {
+                    Debug.Log("from normal");
                     shopList.itemsList.RemoveAt(i);
+                    shopList.RemoveItemFromStack(itemToRemove);
                 }
             }
         }
