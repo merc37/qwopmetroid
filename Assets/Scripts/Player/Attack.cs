@@ -80,7 +80,7 @@ public class Attack : MonoBehaviour {
         }
     }
 
-    private void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPos.transform.position, attackRadius);

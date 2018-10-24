@@ -15,6 +15,7 @@ MonoBehaviour:
   itemCost: 10
   itemIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   itemDescription: Green PewDiePie
+  itemNumber: 0
   itemStack: 0
   stackable: 0
   currentShopIndex:

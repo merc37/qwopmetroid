@@ -22,7 +22,7 @@ TagManager:
   - Ground
   - PhysicsCollider
   - Enemy
-  - 
+  - PickUp
   - 
   - 
   - 

@@ -16,7 +16,7 @@ MonoBehaviour:
   itemIcon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   itemDescription: 
   itemNumber: 0
-  itemStack: 1
+  itemStack: 3
   stackable: 1
   currentShopIndex:
     UseConstant: 1

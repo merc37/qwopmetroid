@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
 
     public FloatReference speed;
     public FloatReference moveInputX;
+    public FloatReference health;
 
     public BoolVariable moveInputedX;
     public BoolVariable isGrounded;
@@ -28,6 +29,9 @@ public class PlayerController : MonoBehaviour {
 
     private void Update()
     {
+        if(health.Value <= 0) {
+            Debug.Log("Player Dies");
+        }
     }
 
     private void FixedUpdate ()
