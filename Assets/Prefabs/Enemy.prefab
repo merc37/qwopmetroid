@@ -23,8 +23,6 @@ GameObject:
   - component: {fileID: 23483446062846268}
   - component: {fileID: 61323895086390302}
   - component: {fileID: 114661737981110704}
-  - component: {fileID: 114059088694827554}
-  - component: {fileID: 50229370037677430}
   m_Layer: 12
   m_Name: Enemy
   m_TagString: Untagged
@@ -87,26 +85,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1714709269248432}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!50 &50229370037677430
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1714709269248432}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &61323895086390302
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -132,22 +110,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114059088694827554
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1714709269248432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e581681652e5cca49bf76e9b7370456e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed:
-    UseConstant: 1
-    ConstantValue: 0
-    Variable: {fileID: 0}
-  waypoints: []
 --- !u!114 &114661737981110704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -160,3 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 15
+  DmgFromPlayer:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 22d25355834ef3345a73d8537cf96089, type: 2}

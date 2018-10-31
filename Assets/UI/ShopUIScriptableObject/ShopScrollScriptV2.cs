@@ -27,6 +27,12 @@ public class ShopScrollScriptV2 : MonoBehaviour {
     private bool canTransfer = true;
 
     // Use this for initialization
+
+    private void OnEnable()
+    {
+        RefreshDisplay();
+    }
+
     void Start()
     {
         RefreshDisplay();
@@ -43,24 +49,6 @@ public class ShopScrollScriptV2 : MonoBehaviour {
 
     private void RemoveButtons()
     {
-        //for (int i = 0; i < shopList.itemsList.Count; i++)
-        //{
-        //    Item item = shopList.itemsList[i];
-        //    if (item.stackable == true && item.itemStack > 0)
-        //    {
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        while (contentPanel.childCount > 0)
-        //        {
-        //            GameObject toRemove = transform.GetChild(0).gameObject;
-        //            buttonObjectPool.ReturnObject(toRemove);
-        //            Debug.Log("button removed");
-        //        }
-        //    }
-        //}
-
         while (contentPanel.childCount > 0)
         {
             GameObject toRemove = transform.GetChild(0).gameObject;
@@ -80,29 +68,7 @@ public class ShopScrollScriptV2 : MonoBehaviour {
             newButton.transform.localScale = new Vector3(1, 1, 1);
 
             ButtonTemplate buttonTemplate = newButton.GetComponent<ButtonTemplate>();
-            buttonTemplate.SetupItem(item/*,shopList*/, this);
-
-            //int itemIndex = shopList.itemsList.IndexOf(item);
-
-            //if (shopList.itemsList[itemIndex].stackable == true)
-            //{
-            //    GameObject newButton = buttonObjectPool.GetObject();
-            //    newButton.transform.SetParent(contentPanel);
-            //    newButton.transform.localScale = new Vector3(1, 1, 1);
-
-            //    ButtonTemplate buttonTemplate = newButton.GetComponent<ButtonTemplate>();
-            //    buttonTemplate.SetupItem(item/*,shopList*/, this);
-
-            //}
-            //else
-            //{
-            //    GameObject newButton = buttonObjectPool.GetObject();
-            //    newButton.transform.SetParent(contentPanel);
-            //    newButton.transform.localScale = new Vector3(1, 1, 1);
-
-            //    ButtonTemplate buttonTemplate = newButton.GetComponent<ButtonTemplate>();
-            //    buttonTemplate.SetupItem(item/*,shopList*/, this);
-            //}
+            buttonTemplate.SetupItem(item, this);
         }
     }
 
@@ -117,7 +83,9 @@ public class ShopScrollScriptV2 : MonoBehaviour {
             //otherShopScrollScript.shopList.gold.Variable.Value -= item.itemCost;
 
             AddItem(item, otherShopList);
+            Debug.Log("Added item");
             RemoveItem(item, shopList);
+            Debug.Log("removed item");
 
             shopedItem.boolState = true;
 
@@ -139,15 +107,24 @@ public class ShopScrollScriptV2 : MonoBehaviour {
         //Debug.Log(itemToAdd.name + "added");
         if (shopList.itemsList.Contains(itemToAdd) && itemToAdd.stackable == true)
         {
-            shopList.IncItemStackNumber(itemToAdd);
-            Debug.Log("from Add stackable");
+            if (shopList.ContainsItemInStack(itemToAdd))
+            {
+                shopList.IncItemStackNumber(itemToAdd);
+                //Debug.Log("inc stackable item stack");
+            }
+            else
+            {
+                shopList.AddItemToStack(itemToAdd);
+                shopList.IncItemStackNumber(itemToAdd);
+                //Debug.Log("added item to inventory stack");
+            }
             //itemToAdd.itemStack++;
         }
         else
         {
+            Debug.Log("added normal item to stack");
             shopList.itemsList.Add(itemToAdd);
             shopList.AddItemToStack(itemToAdd);
-            Debug.Log("from did not exist before");
         }
     }
 
@@ -160,13 +137,16 @@ public class ShopScrollScriptV2 : MonoBehaviour {
             {
                 if (itemToRemove.stackable == true)
                 {
-                    if(shopList.DecItemStackNumber(itemToRemove)) {
-                        float currentStackAmount = shopList.ItemAndStackNumber(item).y;
-                        if(currentStackAmount <= 0) {
-                            shopList.itemsList.RemoveAt(i);
-                            shopList.RemoveItemFromStack(itemToRemove);
-                            Debug.Log("from Remove stackable" + shopList.ItemAndStackNumber(itemToRemove).y);
-                        }
+                    if(shopList.ItemAndStackNumber(itemToRemove).y > 1)
+                    {
+                        shopList.DecItemStackNumber(itemToRemove);
+                        //Debug.Log("dec stackable item stack");
+                    }
+                    else
+                    {
+                        shopList.RemoveItemFromStack(itemToRemove);
+                        shopList.itemsList.RemoveAt(i);
+                        //Debug.Log("remove stackable item stack");
                     }
                     //if (itemToRemove.itemStack > 1)
                     //{     
@@ -181,9 +161,9 @@ public class ShopScrollScriptV2 : MonoBehaviour {
                 }
                 else
                 {
-                    Debug.Log("from normal");
-                    shopList.itemsList.RemoveAt(i);
                     shopList.RemoveItemFromStack(itemToRemove);
+                    shopList.itemsList.RemoveAt(i);
+                    //Debug.Log("remove normal item stack");
                 }
             }
         }

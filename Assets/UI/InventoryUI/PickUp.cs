@@ -1,11 +1,11 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PickUp : MonoBehaviour {
 
     [SerializeField] BoolVariable pickedUp;
+    [SerializeField] ShopList playerInventory;
 
     private Item item;
 
@@ -21,6 +21,8 @@ public class PickUp : MonoBehaviour {
         if (pickedUp.boolState == true)
         {
             item = collision.collider.GetComponent<PickUpItem>().item;
+            playerInventory.itemsList.Add(item);
+            playerInventory.AddItemToStack(item);
             //Debug.Log(item.itemName + "Set to item");
         }
     }

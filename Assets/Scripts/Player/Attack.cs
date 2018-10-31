@@ -5,6 +5,7 @@ using UnityEngine;
 public class Attack : MonoBehaviour {
 
     public WeaponType weaponType;
+    public BoolVariable damagedEnemy;
 
     private float weaponDmg;
     private float timeBetweenAttack;
@@ -21,11 +22,15 @@ public class Attack : MonoBehaviour {
 
     public LayerMask whatIsEnemy;
 
+    public FloatReference[] playerInputs = new FloatReference[2];
+    public BoolVariable[] playerInputBools = new BoolVariable[2];
 
-	void Start () {
+
+    void Start () {
         startTimeBtwAttack = weaponType.timeBtwAttack.Value;
         weaponDmg = weaponType.Damage.Value;
         colType = weaponType.ColliderType;
+        //Check collider on weapons type
         if (colType == 0)
         {
             attackRangeX = weaponType.AttackRangeX.Value;
@@ -64,26 +69,59 @@ public class Attack : MonoBehaviour {
         if(colliderTypeNumber == 0)
         {
             Debug.Log("ColliderReached");
-            Collider2D[] enemyColliders = Physics2D.OverlapBoxAll(attackPos.transform.position, new Vector2(attackRangeX, attackRangeY) * 2, boxAngle, whatIsEnemy);
-            for (int i = 0; i < enemyColliders.Length; i++)
+
+            Collider2D[] enemyColliders = Physics2D.OverlapBoxAll(AttackPosition(playerInputs, playerInputBools), new Vector2(attackRangeX, attackRangeY) * 2, boxAngle, whatIsEnemy);
+
+            foreach (Collider2D col2d in enemyColliders)
             {
-                enemyColliders[i].GetComponent<Enemy>().DamageTaken(weaponDmg);
-                Debug.Log("EnemyMessageSent");
+                col2d.GetComponent<Enemy>().DamageTaken(weaponDmg);
+                damagedEnemy.boolState = true;
             }
-        }else if (colliderTypeNumber == 1)
+
+        }
+
+        else if (colliderTypeNumber == 1)
         {
-            Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(attackPos.transform.position, attackRadius, whatIsEnemy);
-            for (int i = 0; i < enemyColliders.Length; i++)
+            Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(AttackPosition(playerInputs, playerInputBools), attackRadius, whatIsEnemy);
+
+            foreach (Collider2D col2D in enemyColliders)
             {
-                enemyColliders[i].GetComponent<Enemy>().DamageTaken(weaponDmg);
+                col2D.GetComponent<Enemy>().DamageTaken(weaponDmg);
+                damagedEnemy.boolState = true;
             }
         }
     }
 
-    void OnDrawGizmosSelected()
+    private Vector3 AttackPosition(FloatReference[] inputsPlayer, BoolVariable[] playerInputBools)
+    {
+        Vector3 attackPosition = new Vector3(transform.position.x, transform.position.y, 0);
+
+        if (playerInputBools[1].boolState == true)
+        {
+            attackPosition.x = transform.position.x;
+            attackPosition.y = transform.position.y + inputsPlayer[1].Value;
+            attackPosition.z = 0;
+        }
+        if (playerInputBools[0].boolState == true)
+        {
+            attackPosition.x = transform.position.x + inputsPlayer[0].Value;
+            attackPosition.y = transform.position.y;
+            attackPosition.z = 0;
+        }
+        else if(playerInputBools[0].boolState ==  false && playerInputBools[1].boolState == false)
+        {
+            attackPosition.x = transform.position.x;
+            attackPosition.y = transform.position.y;
+            attackPosition.z = 0;
+        }
+
+        return attackPosition;
+    }
+
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPos.transform.position, attackRadius);
-        Gizmos.DrawWireCube(attackPos.transform.position, new Vector3(attackRangeX,attackRangeY,0));
+        Gizmos.DrawWireSphere(AttackPosition(playerInputs,playerInputBools), attackRadius);
+        Gizmos.DrawWireCube(AttackPosition(playerInputs, playerInputBools), new Vector3(attackRangeX,attackRangeY,0));
     }
 }

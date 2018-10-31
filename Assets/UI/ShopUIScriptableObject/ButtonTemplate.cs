@@ -17,11 +17,8 @@ public class ButtonTemplate : MonoBehaviour
     public Item duplicateItem;
 
     internal ShopScrollScriptV2 scrollList;
-    //private ItemInfoScript infoDisplay;
 
     public ButtonTemplate thisButtom;
-    //public ItemInfoScript itemInfo;
-    //private ShopScrollScriptV2 scrollList;
 
     // Use this for initialization
     void Start()
@@ -31,14 +28,14 @@ public class ButtonTemplate : MonoBehaviour
         stackItem.enabled = false;
     }
 
-    public void SetupItem(Item currentItem,/* ShopList currentShop,*/ShopScrollScriptV2 currentShop)
+    public void SetupItem(Item currentItem, ShopScrollScriptV2 currentShop)
     {
         duplicateItem = currentItem;
-
-        if (duplicateItem.stackable == true && currentShop.shopList.ItemAndStackNumber(duplicateItem).y != 0)
+        float itemStackAmount = currentShop.shopList.ItemAndStackNumber(duplicateItem).y;
+        if (duplicateItem.stackable == true && itemStackAmount > 0)
         {
             itemIsStackable = true;
-            stackItem.text = currentShop.shopList.ItemAndStackNumber(duplicateItem).y.ToString();
+            stackItem.text = itemStackAmount.ToString();
             stackItem.enabled = true;
         }
         else

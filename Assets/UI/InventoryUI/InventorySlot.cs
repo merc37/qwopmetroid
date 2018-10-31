@@ -7,6 +7,7 @@ public class InventorySlot : MonoBehaviour {
 
     public Image icon;
     public Button removeButton;
+    public ShopList playerInventory;
 
     public BoolVariable itemRemoved;
     public Item itemToRemove;
@@ -23,9 +24,9 @@ public class InventorySlot : MonoBehaviour {
         icon.sprite = item.itemIcon;
         icon.enabled = true;
         removeButton.interactable = true;
-        if(item.stackable == true && item.itemStack > 1)
+        if(item.stackable == true && playerInventory.ItemAndStackNumber(item).y > 1)
         {
-            itemStackAmount.text = item.itemStack.ToString();
+            itemStackAmount.text = playerInventory.ItemAndStackNumber(item).y.ToString();
             itemStackAmount.enabled = true;
         }
         else
@@ -46,10 +47,26 @@ public class InventorySlot : MonoBehaviour {
 
     public void OnItemRemove()
     {
-        itemRemoved.boolState = true;
-        //SET OTHER VALUES HERE
-        itemToRemove.itemNumber = item.itemNumber;
-        Debug.Log(itemToRemove.itemName);
+        if(item.stackable == true)
+        {
+            if (playerInventory.ItemAndStackNumber(item).y == 1)
+            {
+                playerInventory.itemsList.Remove(item);
+                playerInventory.RemoveItemFromStack(item);
+            }
+            else
+            {
+                playerInventory.DecItemStackNumber(item);
+            }
+            
+        }
+        else
+        {
+            playerInventory.itemsList.Remove(item);
+            playerInventory.RemoveItemFromStack(item);
+        }
+        
+        ClearSlot();
     }
    
 }

@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Name: PlayerShopList
   m_EditorClassIdentifier: 
   itemsList:
-  - {fileID: 11400000, guid: 4af7909f7cd22af449f9466209cbc5f2, type: 2}
-  - {fileID: 11400000, guid: 07313ffa2a208cd4496e88b69ebe7471, type: 2}
-  - {fileID: 11400000, guid: f289fc27aae33054d831a430d30e3258, type: 2}
-  - {fileID: 11400000, guid: 277e3cb33740e514f8b30688a6139d72, type: 2}
-  - {fileID: 11400000, guid: a0ee071abf379344aa1cf74894de28a7, type: 2}
+  - {fileID: 11400000, guid: 8eac5becc2538ca43bd84b04342e9a32, type: 2}
+  - {fileID: 11400000, guid: 8eac5becc2538ca43bd84b04342e9a32, type: 2}
+  - {fileID: 11400000, guid: 56c1a8a9d5011cb41911972030d43772, type: 2}
+  - {fileID: 11400000, guid: 8eac5becc2538ca43bd84b04342e9a32, type: 2}
+  - {fileID: 11400000, guid: 56c1a8a9d5011cb41911972030d43772, type: 2}
+  - {fileID: 11400000, guid: 56c1a8a9d5011cb41911972030d43772, type: 2}
+  - {fileID: 11400000, guid: 56c1a8a9d5011cb41911972030d43772, type: 2}
   gold:
     UseConstant: 0
     ConstantValue: 0
@@ -25,3 +27,24 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 1
     Variable: {fileID: 0}
+  itemAndStackNumber:
+  - {x: 1, y: 1}
+  - {x: 5, y: 1}
+  - {x: 1, y: 1}
+  - {x: 1, y: 1}
+  - {x: 5, y: 1}
+  - {x: 5, y: 1}
+  - {x: 5, y: 1}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}

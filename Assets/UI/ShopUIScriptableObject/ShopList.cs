@@ -11,7 +11,29 @@ public class ShopList : ScriptableObject {
     public FloatReference gold;
     public FloatReference shopReferenceNumber;
 
-    internal Vector2[] itemAndStackNumber;
+    [SerializeField] Vector2[] itemAndStackNumber = new Vector2[20];
+
+    public void ClearAndAddItemData()
+    {
+        ClearItemAndStackRef();
+        AddItemFromItemList();
+    }
+
+    private void ClearItemAndStackRef()
+    {
+        for (int i = 0; i < itemAndStackNumber.Length; i++)
+        {
+            itemAndStackNumber[i] = Vector2.zero;
+        }
+    }
+
+    private void AddItemFromItemList()
+    {
+        for (int i = 0; i < itemsList.Count; i++)
+        {
+            itemAndStackNumber[i] = new Vector2(itemsList[i].itemNumber, 1);
+        }
+    }
 
     public Vector2 ItemAndStackNumber(Item item)
     {
@@ -23,6 +45,18 @@ public class ShopList : ScriptableObject {
             }
         }
         return Vector2.zero;
+    }
+
+    public bool ContainsItemInStack(Item item)
+    {
+        for (int i = 0; i < itemAndStackNumber.Length; i++)
+        {
+            if (itemAndStackNumber[i].x == item.itemNumber)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public bool AddItemToStack(Item item)
@@ -59,7 +93,7 @@ public class ShopList : ScriptableObject {
             if(itemAndStackNumber[i].x == item.itemNumber)
             {
                itemAndStackNumber[i].y++;
-               return true;
+                return true;
             }
         }
         return false;

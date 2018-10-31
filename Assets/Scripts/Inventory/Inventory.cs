@@ -18,7 +18,18 @@ public class Inventory : MonoBehaviour {
     public BoolVariable inventoryKey;
     [SerializeField] GameObject inventoryUI;
 
+    [SerializeField] Transform itemSlotsParent;
+    [SerializeField] InventorySlot[] inventorySlots;
+
     public FloatReference numberOfItemsWithPlayer;
+
+    private void OnValidate()
+    {
+        if (itemSlotsParent != null)
+        {
+            inventorySlots = itemSlotsParent.GetComponentsInChildren<InventorySlot>();
+        }
+    }
 
     private void Start()
     {
@@ -43,13 +54,6 @@ public class Inventory : MonoBehaviour {
             PickedUpItem(pickupItem);
             pickedItem.boolState = false;
         }
-
-        if (isItemToRemove.boolState == true)
-        {
-            RemoveItem(itemToRemove);
-            Debug.Log(itemToRemove.itemName + "from removeItem");
-            isItemToRemove.boolState = false;
-        }
     }
 
     private void PickedUpItem(Item item)
@@ -70,18 +74,21 @@ public class Inventory : MonoBehaviour {
     {
         if (item != null)
         {
-            int itemIndex = playerInventoryList.itemsList.IndexOf(item);
+            //int itemIndex = playerInventoryList.itemsList.IndexOf(item);
 
-            if (playerInventoryList.itemsList.Contains(item) && playerInventoryList.itemsList[itemIndex].stackable == true)
-            {
-                playerInventoryList.itemsList[itemIndex].itemStack++;
-                displayPlayerInventoryList.itemsList = playerInventoryList.itemsList;
-            }
-            else
-            {
-                playerInventoryList.itemsList.Add(item);
-                displayPlayerInventoryList.itemsList = playerInventoryList.itemsList;
-            }
+            //if (playerInventoryList.itemsList.Contains(item) && item.stackable == true)
+            //{
+            //    //playerInventoryList.itemsList[itemIndex].itemStack++;
+            //    playerInventoryList.IncItemStackNumber(item);
+            //    displayPlayerInventoryList.itemsList = playerInventoryList.itemsList;
+            //    Debug.Log("inc stackable item stack");
+            //}
+            //else
+            //{
+            //    playerInventoryList.itemsList.Add(item);
+            //    displayPlayerInventoryList.itemsList = playerInventoryList.itemsList;
+            //    Debug.Log("added stackable item to stack");
+            //}
         }
         else
         {
@@ -89,37 +96,52 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    private void RemoveItem(Item item)
-    {
-        if (item != null)
-        {
-            int itemIndex = item.itemNumber;
+    //private void RemoveItem(Item item)
+    //{
+    //    if (item != null)
+    //    {
+    //        int itemIndex = item.itemNumber;
 
-            for (int i = 0; i < playerInventoryList.itemsList.Count; i++)
-            {
-                if( itemIndex == playerInventoryList.itemsList[i].itemNumber)
-                {
-                    if (playerInventoryList.itemsList[i].stackable == true)
-                    {
-                        playerInventoryList.itemsList[itemIndex].itemStack--;
-                        displayPlayerInventoryList.itemsList = playerInventoryList.itemsList;
-                        Debug.Log("stackableItemHasBeenRemoved");
-                    }
-                    else
-                    {
-                        playerInventoryList.itemsList.Remove(item);
-                        displayPlayerInventoryList.itemsList = playerInventoryList.itemsList;
-                        Debug.Log("ItemHasBeenRemoved");
-                    }
-                }
-            }
-            
-        }
-        else
-        {
-            Debug.LogWarning("THIS IS A WARNING item IS NULL cant remove item");
-        }
-    }
+    //        for (int i = 0; i < playerInventoryList.itemsList.Count; i++)
+    //        {
+    //            if( itemIndex == playerInventoryList.itemsList[i].itemNumber)
+    //            {
+    //                if (playerInventoryList.itemsList[i].stackable == true)
+    //                {
+    //                    if(playerInventoryList.ItemAndStackNumber(item).y > 1)
+    //                    {
+    //                        //playerInventoryList.itemsList[itemIndex].itemStack--;
+    //                        playerInventoryList.DecItemStackNumber(item);
+    //                        displayPlayerInventoryList.itemsList = playerInventoryList.itemsList;
+    //                        Debug.Log("stackableItemHasBeenRemoved");
+    //                    }
+    //                    else
+    //                    {
+    //                        //playerInventoryList.itemsList[itemIndex].itemStack--;
+    //                        playerInventoryList.RemoveItemFromStack(item);
+    //                        playerInventoryList.itemsList.Remove(item);
+    //                        displayPlayerInventoryList.itemsList = playerInventoryList.itemsList;
+
+    //                        Debug.Log("stackableItemHasBeenRemoved");
+    //                    }
+
+    //                }
+    //                else
+    //                {
+    //                    playerInventoryList.itemsList.Remove(item);
+    //                    playerInventoryList.RemoveItemFromStack(item);
+    //                    displayPlayerInventoryList.itemsList = playerInventoryList.itemsList;
+    //                    Debug.Log("ItemHasBeenRemoved");
+    //                }
+    //            }
+    //        }
+
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("THIS IS A WARNING item IS NULL cant remove item");
+    //    }
+    //}
 
     private void ActivateInventory()
     {

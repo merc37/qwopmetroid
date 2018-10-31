@@ -6,17 +6,21 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour {
 
+    public BoolVariable damagedEnemy; 
+
     public FloatReference speed;
+
     public FloatReference moveInputX;
-    public FloatReference health;
-
     public BoolVariable moveInputedX;
+    public FloatReference moveInputY;
+    public BoolVariable moveInputedY;
+
     public BoolVariable isGrounded;
-
     public float checkRadius;
-
     public LayerMask whatIsGround;
     public Transform groundCheck;
+
+    public FloatReference playerHealth;
 
     protected Rigidbody2D rb2d;
 
@@ -29,14 +33,11 @@ public class PlayerController : MonoBehaviour {
 
     private void Update()
     {
-        if(health.Value <= 0) {
-            Debug.Log("Player Dies");
-        }
+        BounceBack();
     }
 
     private void FixedUpdate ()
     {
-        
         if (moveInputedX.boolState)
         {
             Move(moveInputX.Value, speed);
@@ -47,7 +48,6 @@ public class PlayerController : MonoBehaviour {
             Move(0, speed);
             //Debug.Log("stillX: " + moveInputX.Value);
         }
-        
     }
 
     protected void Move(float movementInput, FloatReference speedToMove)
@@ -63,6 +63,16 @@ public class PlayerController : MonoBehaviour {
         else if (facingRight == true && movementInput < 0)
         {
             Flip();
+        }
+    }
+    
+    //FIX CODE BELOW IT IS NOT WORKING
+    private void BounceBack()
+    {
+        if (damagedEnemy.boolState == true && moveInputY.Value == -1)
+        {
+            rb2d.AddForce(Vector2.up * 10000);
+            damagedEnemy.boolState = false;
         }
     }
 
