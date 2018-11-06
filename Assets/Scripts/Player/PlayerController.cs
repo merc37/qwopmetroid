@@ -6,25 +6,57 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour {
 
-    public BoolVariable damagedEnemy; 
-
+    [Header(header:"Down Slash Bounce")]
+    public float downSlashJumpDistance;
+    public float downSlashJumpTimeToFall;
+    public float downSlashUpVelocity;
+    [Space]
+    [Header(header: "Character Related")]
+    public FloatReference playerHealth;
+    public BoolVariable playerWasDamaged;
     public FloatReference speed;
-
+    [Space]
+    [Header(header: "Player MoveInput Related")]
     public FloatReference moveInputX;
     public BoolVariable moveInputedX;
     public FloatReference moveInputY;
     public BoolVariable moveInputedY;
-
+    public BoolVariable canMove;
+    [Space]
+    [Header(header: "Player Attack Related")]
+    public Weapon currentWeapon;
+    public BoolVariable playerAttacked;
+    public BoolVariable damagedEnemy;
+    [Space]
+    [Header(header: "Player Inventory Related")]
+    public EquippedItems playerEquippedItemsList;
+    public CharacterItemsList playerInventoryList;
+    [Space]
+    [Header(header: "Player Physics Related")]
     public BoolVariable isGrounded;
     public float checkRadius;
     public LayerMask whatIsGround;
     public Transform groundCheck;
 
-    public FloatReference playerHealth;
+    [Space]
+    [Header(header: "Temporary HERE")]
+    public float knockBackX;
+    public float knockBackY;
+    public float knockBackTime;
+    private bool playerKnockedBack;
+    private float knockbackCoolDown;
 
     protected Rigidbody2D rb2d;
 
     private bool facingRight = true;
+
+    private void OnValidate()
+    {
+        if (downSlashJumpTimeToFall != 0)
+        {
+            downSlashUpVelocity = (2 * downSlashJumpDistance) / downSlashJumpTimeToFall;
+        }
+    }
 
     void Awake ()
     {
@@ -38,16 +70,31 @@ public class PlayerController : MonoBehaviour {
 
     private void FixedUpdate ()
     {
-        if (moveInputedX.boolState)
+        if (canMove.boolState == true)
         {
-            Move(moveInputX.Value, speed);
-            //Debug.Log("moving: "+ moveInputX.Value);
+            if (moveInputedX.boolState)
+            {
+                Move(moveInputX.Value, speed);
+                //Debug.Log("moving: "+ moveInputX.Value);
+            }
+            else
+            {
+                Move(0, speed);
+                //Debug.Log("stillX: " + moveInputX.Value);
+            }
         }
         else
         {
-            Move(0, speed);
-            //Debug.Log("stillX: " + moveInputX.Value);
+            if(playerKnockedBack == true)
+            {
+                if (Time.time >= knockbackCoolDown)
+                {
+                    canMove.boolState = true;
+                    playerKnockedBack = false;
+                }
+            }
         }
+        
     }
 
     protected void Move(float movementInput, FloatReference speedToMove)
@@ -66,14 +113,67 @@ public class PlayerController : MonoBehaviour {
         }
     }
     
-    //FIX CODE BELOW IT IS NOT WORKING
     private void BounceBack()
     {
         if (damagedEnemy.boolState == true && moveInputY.Value == -1)
         {
-            rb2d.AddForce(Vector2.up * 10000);
+            Debug.Log("In HEre in BOUNCE BACK");
+            rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Abs(downSlashUpVelocity));
             damagedEnemy.boolState = false;
         }
+    }
+
+    private void KnockBack(Vector2 positionOfContact, float knockBackSpeedY, float knockBackSpeedX)
+    {
+        if(transform.position.x > positionOfContact.x)
+        {
+            if(transform.position.y  > positionOfContact.y)
+            {
+                Vector2 directioin = new Vector2(1, 1).normalized;
+                Vector2 directionForce = new Vector2(directioin.x * knockBackSpeedX, directioin.y * knockBackSpeedY);
+                rb2d.velocity = directionForce;
+                //rb2d.AddForce(directionForce);
+            }
+            else
+            {
+                Vector2 directioin = new Vector2(1, -1).normalized;
+                Vector2 directionForce = new Vector2(directioin.x * knockBackSpeedX, directioin.y * knockBackSpeedY);
+                rb2d.velocity = directionForce;
+                //rb2d.AddForce(directionForce);
+            }
+        }
+        else
+        {
+            if (transform.position.y > positionOfContact.y)
+            {
+                Vector2 directioin = new Vector2(-1, 1).normalized;
+                Vector2 directionForce = new Vector2(directioin.x * knockBackSpeedX, directioin.y * knockBackSpeedY);
+                rb2d.velocity = directionForce;
+                //rb2d.AddForce(directionForce);
+            }
+            else
+            {
+                Vector2 directioin = new Vector2(-1, -1).normalized;
+                Vector2 directionForce = new Vector2(directioin.x * knockBackSpeedX, directioin.y * knockBackSpeedY);
+                rb2d.velocity = directionForce;
+                //rb2d.AddForce(directionForce);
+            }
+        }
+
+        playerKnockedBack = true;
+        Debug.Log(rb2d.velocity);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            playerHealth.Variable.Value -= collision.gameObject.GetComponent<Enemy>().damagePlayer;
+            canMove.boolState = false;
+            knockbackCoolDown = Time.time + knockBackTime;
+            KnockBack(collision.collider.transform.position, knockBackY, knockBackX);
+        }
+        
     }
 
     private void Flip()

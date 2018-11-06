@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 { 
+    [Header(header: "Move Inputs & Bools")]
     public FloatReference HorizontalInputValue;
     public FloatReference VerticalInputValue;
 
     public BoolVariable HorizontalInputState;
     public BoolVariable VerticalInputState;
+    [Space]
+    [Header(header: "OtherInputs")]
+    public BoolVariable AttackInputState;
 
     public BoolVariable InventoryInputState;
     public BoolVariable openCloseShop;
@@ -32,6 +36,7 @@ public class PlayerInput : MonoBehaviour
         GetUIOpenInput();
     }
 
+    //MOVEMENT INPUTS FOR NOW CONTAINS ATTTACK INPUTS
     private void GetMovementInput()
     {
         //HORIZONTAL INPUT
@@ -64,8 +69,22 @@ public class PlayerInput : MonoBehaviour
             VerticalInputState.boolState = false;
         }
 
+        //Attack Input
+        if(Input.GetButton("Attack") || Input.GetButtonDown("Attack"))
+        {
+            AttackInputState.boolState = true;
+        }
+        else if (Input.GetButtonUp("Attack"))
+        {
+            AttackInputState.boolState = false;
+        }
+        else
+        {
+            AttackInputState.boolState = false;
+        }
     }
 
+    //OPENING AND CLOSING UI
     private void GetUIOpenInput()
     {
         //INVENTORY OPEN INPUT

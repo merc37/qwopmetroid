@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 [System.Serializable]
 public class FloatReference
@@ -19,7 +20,7 @@ public class FloatReference
 
 }
 
-[CreateAssetMenu(fileName = " New Float", menuName = "ScriptableObjects/Variables/Float", order = 0)]
+[CreateAssetMenu(fileName = " New Float", menuName = "Scriptable Objects/Variables/Float", order = 0)]
 public class FloatVariable : ScriptableObject
 {
     public float Value;

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour {
 
-    public WeaponType weaponType;
+    public Weapon weaponType;
 
     private float weaponDmg;
     private float timeBetweenAttack;
     private float startTimeBtwAttack;
-    private float colType;
+    private ColliderType colType;
 
     private float boxAngle;
 
@@ -28,11 +28,11 @@ public class EnemyAttack : MonoBehaviour {
         startTimeBtwAttack = weaponType.timeBtwAttack.Value;
         weaponDmg = weaponType.Damage.Value;
         colType = weaponType.ColliderType;
-        if(colType == 0) {
+        if(colType == ColliderType.Square) {
             attackRangeX = weaponType.AttackRangeX.Value;
             attackRangeY = weaponType.AttackRangeY.Value;
             attackRadius = 0;
-        } else if(colType == 1) {
+        } else if(colType == ColliderType.Circle) {
             attackRadius = weaponType.AttackRadius.Value;
             attackRangeX = 0;
             attackRangeY = 0;
@@ -52,13 +52,13 @@ public class EnemyAttack : MonoBehaviour {
         }
     }
 
-    private void AttackTypeExecute(float colliderTypeNumber) {
-        if(colliderTypeNumber == 0) {
+    private void AttackTypeExecute(ColliderType colliderTypeNumber) {
+        if(colliderTypeNumber == ColliderType.Square) {
             Collider2D enemyCollider = Physics2D.OverlapBox(attackPos.transform.position, new Vector2(attackRangeX, attackRangeY) * 2, boxAngle, whatIsEnemy);
             if(enemyCollider) {
                 playerHealth.Variable.Value -= weaponDmg;
             }
-        } else if(colliderTypeNumber == 1) {
+        } else if(colliderTypeNumber == ColliderType.Circle) {
             Collider2D enemyCollider = Physics2D.OverlapCircle(attackPos.transform.position, attackRadius, whatIsEnemy);
             if(enemyCollider) {
                 playerHealth.Variable.Value -= weaponDmg;

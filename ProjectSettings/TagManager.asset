@@ -8,6 +8,8 @@ TagManager:
   - Shop
   - PickUp
   - ItemPickUp
+  - Enemy
+  - Walls
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Ground
   - PhysicsCollider
   - Enemy
-  - PickUp
+  - 
   - 
   - 
   - 

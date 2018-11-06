@@ -11,4 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a96558888cb9d40a8ee7b95160932f, type: 3}
   m_Name: ShopGold
   m_EditorClassIdentifier: 
-  Value: 50
+  Value: 500

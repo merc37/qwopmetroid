@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour {
 
-    public WeaponType weaponType;
+    public EquippedItems playerEquippedItems;
+    public Weapon currentWeapon;
     public BoolVariable damagedEnemy;
 
     private float weaponDmg;
     private float timeBetweenAttack;
     private float startTimeBtwAttack;
-    private float colType;
+    private ColliderType colType;
 
     private float boxAngle;
 
@@ -24,33 +25,20 @@ public class Attack : MonoBehaviour {
 
     public FloatReference[] playerInputs = new FloatReference[2];
     public BoolVariable[] playerInputBools = new BoolVariable[2];
+    public Collider2D[] enemyColliders;
 
 
     void Start () {
-        startTimeBtwAttack = weaponType.timeBtwAttack.Value;
-        weaponDmg = weaponType.Damage.Value;
-        colType = weaponType.ColliderType;
-        //Check collider on weapons type
-        if (colType == 0)
-        {
-            attackRangeX = weaponType.AttackRangeX.Value;
-            attackRangeY = weaponType.AttackRangeY.Value;
-            attackRadius = 0;
-        }
-        else if(colType == 1)
-        {
-            attackRadius = weaponType.AttackRadius.Value;
-            attackRangeX = 0;
-            attackRangeY = 0;
-
-        }
-        boxAngle = weaponType.angleOfBox;
+        SetCurrentWeapon();
     }
 	
 	void Update () {
+
+        SetCurrentWeapon();
+
         if (timeBetweenAttack <= 0)
         {
-            if (Input.GetButton("Attack"))
+            if (Input.GetButton("Attack") && currentWeapon != null)
             {
                 //Debug.Log("Pressed Attack");
                 //Debug.Log(attackRangeX + ", " + attackRangeY);
@@ -64,13 +52,13 @@ public class Attack : MonoBehaviour {
         }
 	}
 
-    private void AttackTypeExecute(float colliderTypeNumber)
+    private void AttackTypeExecute(ColliderType colliderType)
     {
-        if(colliderTypeNumber == 0)
+        if(colliderType == ColliderType.Square)
         {
-            Debug.Log("ColliderReached");
+            //Debug.Log("Square Collider Reached");
 
-            Collider2D[] enemyColliders = Physics2D.OverlapBoxAll(AttackPosition(playerInputs, playerInputBools), new Vector2(attackRangeX, attackRangeY) * 2, boxAngle, whatIsEnemy);
+            enemyColliders = Physics2D.OverlapBoxAll(AttackPosition(playerInputs, playerInputBools), new Vector2(currentWeapon.AttackRangeX.Value, currentWeapon.AttackRangeY.Value) * 2, boxAngle, whatIsEnemy);
 
             foreach (Collider2D col2d in enemyColliders)
             {
@@ -80,9 +68,10 @@ public class Attack : MonoBehaviour {
 
         }
 
-        else if (colliderTypeNumber == 1)
+        else if (colliderType == ColliderType.Circle)
         {
-            Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(AttackPosition(playerInputs, playerInputBools), attackRadius, whatIsEnemy);
+            //Debug.Log("Circle Collider Reached");
+            enemyColliders = Physics2D.OverlapCircleAll(AttackPosition(playerInputs, playerInputBools), currentWeapon.AttackRadius.Value, whatIsEnemy);
 
             foreach (Collider2D col2D in enemyColliders)
             {
@@ -118,10 +107,58 @@ public class Attack : MonoBehaviour {
         return attackPosition;
     }
 
+
+    private void SetCurrentWeapon()
+    {
+        for (int i = 0; i < playerEquippedItems.equippedItems.Count; i++)
+        {
+            if (playerEquippedItems.equippedItems[i].equipmentType == EquipmentType.Weapon1)
+            {
+                currentWeapon = (Weapon)playerEquippedItems.equippedItems[i];
+                break;
+            }
+            else
+            {
+                currentWeapon = null;
+            }
+        }
+
+        if(currentWeapon != null)
+        {
+            startTimeBtwAttack = currentWeapon.timeBtwAttack.Value;
+            weaponDmg = currentWeapon.Damage.Value;
+            colType = currentWeapon.ColliderType;
+
+            boxAngle = currentWeapon.angleOfBox;
+        }
+        else
+        {
+            startTimeBtwAttack = 0;
+            weaponDmg = 0;
+            colType = 0;
+
+            boxAngle = 0;
+
+        }
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(AttackPosition(playerInputs,playerInputBools), attackRadius);
-        Gizmos.DrawWireCube(AttackPosition(playerInputs, playerInputBools), new Vector3(attackRangeX,attackRangeY,0));
+        if(currentWeapon != null)
+        {
+            if (currentWeapon.ColliderType == ColliderType.Circle)
+            {
+                Gizmos.DrawWireSphere(AttackPosition(playerInputs, playerInputBools), currentWeapon.AttackRadius.Value);
+            }
+            else
+            {
+                Gizmos.DrawWireCube(AttackPosition(playerInputs, playerInputBools), new Vector3(currentWeapon.AttackRangeX.Value, currentWeapon.AttackRangeY.Value, 0));
+            }
+        }
+        else
+        {
+            Gizmos.DrawSphere(AttackPosition(playerInputs, playerInputBools), 0.5f);
+        }
     }
 }

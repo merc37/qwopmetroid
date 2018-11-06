@@ -11,6 +11,21 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1714709269248432}
   m_IsPrefabAsset: 1
+--- !u!1 &1678417734150678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4373318692512106}
+  m_Layer: 12
+  m_Name: AttackPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1714709269248432
 GameObject:
   m_ObjectHideFlags: 0
@@ -21,8 +36,11 @@ GameObject:
   - component: {fileID: 4322283470503712}
   - component: {fileID: 33935979869661550}
   - component: {fileID: 23483446062846268}
+  - component: {fileID: 50670521205304902}
   - component: {fileID: 61323895086390302}
   - component: {fileID: 114661737981110704}
+  - component: {fileID: 114970642963817222}
+  - component: {fileID: 114102003101676048}
   m_Layer: 12
   m_Name: Enemy
   m_TagString: Untagged
@@ -39,8 +57,22 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.94, y: 0.59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4373318692512106}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4373318692512106
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1678417734150678}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4322283470503712}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23483446062846268
@@ -85,6 +117,26 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1714709269248432}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!50 &50670521205304902
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714709269248432}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61323895086390302
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -110,6 +162,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114102003101676048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714709269248432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbdd8a80489d9ed49a002490e19bab6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed:
+    UseConstant: 1
+    ConstantValue: 6.7
+    Variable: {fileID: 0}
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114661737981110704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,7 +192,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 15
-  DmgFromPlayer:
+--- !u!114 &114970642963817222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714709269248432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a11895fa4cd694a41bad1b741b3d6a6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: {fileID: 11400000, guid: a294eed4ce2d1194aae8997586e589c4, type: 2}
+  playerPos: {fileID: 0}
+  attackPos: {fileID: 4373318692512106}
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 512
+  playerHealth:
     UseConstant: 0
     ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 22d25355834ef3345a73d8537cf96089, type: 2}
+    Variable: {fileID: 11400000, guid: 619c6db238b16e24b8ddb1e583c99df2, type: 2}

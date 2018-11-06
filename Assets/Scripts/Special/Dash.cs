@@ -8,7 +8,7 @@ public class Dash : MonoBehaviour
     public BoolVariable HorizontalInput;
 
     //private int HorizontalDown;
-    private bool dashUsed;
+    public bool dashUsed;
     private float dashTime;
 
     public float dashSpeed;

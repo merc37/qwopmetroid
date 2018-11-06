@@ -42,8 +42,9 @@ public class EnemyWaypointMovement : MonoBehaviour {
         transform.localScale = scaler;
     }
 
-    void OnCollisionEnter2D(Collision2D collision) {
-        if(collision.collider.bounds.center.Equals(waypoints[currentWaypointIndex].bounds.center)) {
+    void OnTriggerEnter2D(Collider2D collider) {
+        Debug.Log(collider.ToString());
+        if(collider.bounds.center.Equals(waypoints[currentWaypointIndex].bounds.center)) {
             currentWaypointIndex++;
             if(currentWaypointIndex == waypoints.Length) {
                 currentWaypointIndex = 0;
