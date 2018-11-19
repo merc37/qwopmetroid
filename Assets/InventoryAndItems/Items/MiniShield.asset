@@ -17,10 +17,6 @@ MonoBehaviour:
   itemDescription: Small Protector
   itemNumber: 6
   stackable: 0
-  currentShopIndex:
-    UseConstant: 1
-    ConstantValue: 0
-    Variable: {fileID: 0}
   DamageReduction: 2
   speedBonus: -0.5
   directionJuiceBonus: {x: 0, y: 0, z: 0, w: 0}

@@ -6,38 +6,51 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Inventory List", menuName = "Scriptable Objects/Lists/Inventory List", order = 2)]
 public class CharacterItemsList : ScriptableObject {
 
-    public List<Item> itemsList = new List<Item>();
-
     public FloatReference gold;
     public FloatReference shopReferenceNumber;
 
-    [SerializeField] Vector2[] itemAndStackNumber = new Vector2[20];
+    public const int characterInventoryLimit = 20;
 
-    public void PickUpItemHandler(Item item, bool remove)
+    public List<Item> itemsList = new List<Item>();
+    [SerializeField] Vector2[] itemAndStackNumber = new Vector2[characterInventoryLimit];
+
+    public bool PickUpItemHandler(Item item, bool remove)
     {
-        if (ContainsItemInStack(item) && item.stackable == true)
+        if (item.stackable == true && ContainsItemInStack(item))
         {
             if (remove == false)
             {
                 IncItemStackNumber(item);
+                return true;
             }
             else
             {
                 if(ItemAndStackNumber(item).y > 1)
                 {
                     DecItemStackNumber(item);
+                    return true;
                 }
                 else
                 {
                     RemoveItemFromStack(item);
+                    return true;
                 }
             }
             
         }
         else
         {
-            itemsList.Add(item);
-            AddItemToStack(item);
+            if(itemsList.Count < characterInventoryLimit)
+            {
+                itemsList.Add(item);
+                AddItemToStack(item);
+                return true;
+            }
+            else
+            {
+                Debug.Log("Could not pickup: " + item.itemName + " because no more space in inventory");
+                return false;
+            }
         }
     }
 

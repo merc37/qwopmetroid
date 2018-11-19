@@ -79,6 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 5c9778fea8d81df4da840b5d9c2af7c4, type: 2}
+  destroyItem: 0
 --- !u!212 &212030142845779370
 SpriteRenderer:
   m_ObjectHideFlags: 1

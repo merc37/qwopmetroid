@@ -51,10 +51,8 @@ public class PlayerController : MonoBehaviour {
     public float checkRadius;
     public LayerMask whatIsGround;
     public Transform groundCheck;
-    [Space]
-    [Header(header: "Wall Climbing:")]
-    public BoolVariable isClimbing;
-    public LayerMask whatIsClimbable;
+    public float checkForCeelingAtHeight;
+    public LayerMask whatIsCelling;
     [Space]
     [Header(header: "Temporary Here:")]
     public float knockBackX;
@@ -90,7 +88,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Start()
     {
-        ResetJump();
+        ResetJump(true);
         facingRight.boolState = true;
     }
 
@@ -154,6 +152,11 @@ public class PlayerController : MonoBehaviour {
             rb2d.gravityScale = 1;
             Jump();
         }
+        if (Physics2D.OverlapCircle((Vector2)transform.position + Vector2.up * checkForCeelingAtHeight, checkRadius, whatIsCelling) && rb2d.velocity.y >  0)
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
+            ResetJump(false);
+        }
     }
 
     void Jump()
@@ -162,7 +165,7 @@ public class PlayerController : MonoBehaviour {
         if (isGrounded.boolState)
         {
             //Debug.Log("Reseting the jump");
-            ResetJump();
+            ResetJump(true);
         }
 
         if (Input.GetButtonDown("Jump") && remainingJumps > 0)
@@ -276,15 +279,6 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        //if (collision.collider.CompareTag("Walls"))
-        //{
-        //    Debug.Log("here");
-        //    isClimbing.boolState = true;
-        //}
-    }
-
     private void Flip()
     {
         facingRight.boolState = !facingRight.boolState;
@@ -294,15 +288,24 @@ public class PlayerController : MonoBehaviour {
         transform.localScale = scaler;
     }
 
-    private void ResetJump()
+    private void ResetJump(bool fullReset)
     {
-        remainingJumps = (int)extraJumps.Value + 1;
-        jumpTimeCounter = jumpTimer;
-        isJumping = false;
+        if (fullReset)
+        {
+            remainingJumps = (int)extraJumps.Value + 1;
+            jumpTimeCounter = jumpTimer;
+            isJumping = false;
+        }
+        else
+        {
+            jumpTimeCounter = jumpTimer;
+            isJumping = false;
+        }
     }
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireCube(transform.position, transform.lossyScale * 2);
+        //Gizmos.DrawWireCube(transform.position, transform.lossyScale * 2);
+        Gizmos.DrawWireSphere((Vector2)transform.position + Vector2.up * checkForCeelingAtHeight, checkRadius);
     }
 }

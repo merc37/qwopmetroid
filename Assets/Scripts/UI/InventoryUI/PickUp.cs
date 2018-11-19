@@ -7,7 +7,7 @@ public class PickUp : MonoBehaviour {
     [SerializeField] BoolVariable pickedUp;
     [SerializeField] CharacterItemsList playerInventory;
 
-    public Item pickUpItem;
+    private PickUpItem pickUpItem;
 
     private void Start()
     {
@@ -21,9 +21,18 @@ public class PickUp : MonoBehaviour {
 
         if (pickedUp.boolState == true)
         {
-            pickUpItem = collision.GetComponent<PickUpItem>().item;
+            pickUpItem = collision.GetComponent<PickUpItem>();
 
-            playerInventory.PickUpItemHandler(pickUpItem, false);
+            if(playerInventory.PickUpItemHandler(pickUpItem.item, false) && pickUpItem.destroyItem == false)
+            {
+                pickedUp.boolState = false;
+                pickUpItem.destroyItem = true;
+            }
+            else
+            {
+                pickedUp.boolState = false;
+                pickUpItem.destroyItem = false;
+            }
         }
     }
 

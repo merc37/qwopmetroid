@@ -6,7 +6,7 @@ using UnityEngine;
 public class PickUpItem : MonoBehaviour {
 
     public Item item;
-
+    public bool destroyItem = false;
     private SpriteRenderer itemSpriteRenderer;
 
     private void OnValidate()
@@ -18,9 +18,9 @@ public class PickUpItem : MonoBehaviour {
         itemSpriteRenderer.size = new Vector2(2, 2);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && destroyItem == true)
         {
             Destroy(gameObject);
         }
