@@ -9,6 +9,7 @@ public class CameraShake : MonoBehaviour {
     public Transform cameraTransform;
     public float slowDownAmount = 1;
     public bool shouldShake = false;
+    public BoolVariable shouldFollow;
 
     private Vector3 startPosition;
     private float initialDuration;
@@ -26,14 +27,13 @@ public class CameraShake : MonoBehaviour {
             if(duration > 0)
             {
                 RandomPosVector = Random.insideUnitCircle;
-                cameraTransform.position = new Vector3(RandomPosVector.x * power.x, RandomPosVector.y * power.y, cameraTransform.position.z) ;
+                cameraTransform.position = new Vector3(transform.position.x + RandomPosVector.x * power.x, transform.position.y + RandomPosVector.y * power.y, transform.position.z) ;
                 duration -= Time.deltaTime * slowDownAmount;
             }
             else
             {
                 shouldShake = false;
                 duration = initialDuration;
-                cameraTransform.localPosition = startPosition;
             }
         }
 	}

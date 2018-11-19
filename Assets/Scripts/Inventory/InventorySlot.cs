@@ -81,8 +81,14 @@ public class InventorySlot : MonoBehaviour {
         else if (item is ConsummableItem)
         {
             //CHANGE THIS TO CONSUME ITEM OR THIS IS WHY ITEM WILL GET DELETED
-            playerItemsToConsume.ConsumeItem((ConsummableItem)item);
-            OnItemRemove();
+            if (playerItemsToConsume.ConsumeItem((ConsummableItem)item))
+            {
+                OnItemRemove();
+            }
+            else
+            {
+                Debug.Log("Item effect cannot eb applied here");
+            }
         }
         else
         {

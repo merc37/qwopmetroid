@@ -15,9 +15,12 @@ public class ItemsToConsumeList : ScriptableObject
         {
             if(itemToConsume.comsumableType == ConsumableTypes.healthRelated)
             {
-                playerHealth.Variable.Value += itemToConsume.bonousHealth;
-                Debug.Log(playerHealth.Variable.Value);
-                return true;
+                if(playerHealth.Variable.Value < 10)
+                {
+                    playerHealth.Variable.Value += itemToConsume.bonousHealth;
+                    Debug.Log(playerHealth.Variable.Value);
+                    return true;
+                }
             }
         }
         return false;

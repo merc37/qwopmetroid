@@ -44,14 +44,6 @@ public class DoubleJump : MonoBehaviour
             //Debug.Log("isGrounded : " + isGrounded);
         }
 
-        //THIS THING HAS ITS OWN INPUT REMOVE THIS
-        //THIS THING HAS ITS OWN INPUT REMOVE THIS
-        //THIS THING HAS ITS OWN INPUT REMOVE THIS
-        //THIS THING HAS ITS OWN INPUT REMOVE THIS
-        //THIS THING HAS ITS OWN INPUT REMOVE THIS
-        //THIS THING HAS ITS OWN INPUT REMOVE THIS
-        //THIS THING HAS ITS OWN INPUT REMOVE THIS
-        //THIS THING HAS ITS OWN INPUT REMOVE THIS
         if (Input.GetButtonDown("Jump") && extraJumps > 0)
         {
             rb.velocity = Vector2.up * jumpSpeed;

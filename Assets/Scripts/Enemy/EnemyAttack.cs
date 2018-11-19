@@ -26,7 +26,7 @@ public class EnemyAttack : MonoBehaviour {
 
     void Start() {
         startTimeBtwAttack = weaponType.timeBtwAttack.Value;
-        weaponDmg = weaponType.Damage.Value;
+        weaponDmg = 1;
         colType = weaponType.ColliderType;
         if(colType == ColliderType.Square) {
             attackRangeX = weaponType.AttackRangeX.Value;

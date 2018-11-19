@@ -16,39 +16,60 @@ public class PlayerController : MonoBehaviour {
     public BoolVariable playerWasDamaged;
     public FloatReference speed;
     [Space]
-    [Header(header: "Player MoveInput Related")]
+    [Header(header: "Player MoveInput Related:")]
     public FloatReference moveInputX;
     public BoolVariable moveInputedX;
     public FloatReference moveInputY;
     public BoolVariable moveInputedY;
     public BoolVariable canMove;
     [Space]
-    [Header(header: "Player Attack Related")]
+    [Header(header: "Player Jump Related:")]
+    public int remainingJumps;
+    public FloatReference extraJumps;
+    public float jumpHeight;
+    public float halfJumpTime;
+    public float jumpSpeed;
+    public BoolVariable canJump;
+    private float jumpTimeCounter;
+    public float jumpTimer;
+    private bool isJumping;
+
+    public float fallMultiplyer = 2.5f;
+    public float lowMultiplyer = 2.0f;
+    [Space]
+    [Header(header: "Player Attack Related:")]
     public Weapon currentWeapon;
     public BoolVariable playerAttacked;
     public BoolVariable damagedEnemy;
     [Space]
-    [Header(header: "Player Inventory Related")]
+    [Header(header: "Player Inventory Related:")]
     public EquippedItems playerEquippedItemsList;
     public CharacterItemsList playerInventoryList;
     [Space]
-    [Header(header: "Player Physics Related")]
+    [Header(header: "Player Physics Related:")]
     public BoolVariable isGrounded;
     public float checkRadius;
     public LayerMask whatIsGround;
     public Transform groundCheck;
-
     [Space]
-    [Header(header: "Temporary HERE")]
+    [Header(header: "Wall Climbing:")]
+    public BoolVariable isClimbing;
+    public LayerMask whatIsClimbable;
+    [Space]
+    [Header(header: "Temporary Here:")]
     public float knockBackX;
     public float knockBackY;
     public float knockBackTime;
     private bool playerKnockedBack;
     private float knockbackCoolDown;
 
+    [SerializeField] FloatReference playerX;
+    [SerializeField] FloatReference playerY;
+    [SerializeField] FloatReference playerFallingSpeed;
+
     protected Rigidbody2D rb2d;
 
-    private bool facingRight = true;
+    public BoolVariable facingRight;
 
     private void OnValidate()
     {
@@ -56,16 +77,29 @@ public class PlayerController : MonoBehaviour {
         {
             downSlashUpVelocity = (2 * downSlashJumpDistance) / downSlashJumpTimeToFall;
         }
+        if(halfJumpTime != 0)
+        {
+            jumpSpeed = (2 * jumpHeight) / halfJumpTime;
+        }
     }
 
-    void Awake ()
+    private void Awake ()
     {
         rb2d = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        ResetJump();
+        facingRight.boolState = true;
     }
 
     private void Update()
     {
         BounceBack();
+        playerX.Variable.Value = transform.position.x;
+        playerY.Variable.Value = transform.position.y;
+        playerFallingSpeed.Variable.Value = rb2d.velocity.y;
     }
 
     private void FixedUpdate ()
@@ -74,13 +108,11 @@ public class PlayerController : MonoBehaviour {
         {
             if (moveInputedX.boolState)
             {
-                Move(moveInputX.Value, speed);
-                //Debug.Log("moving: "+ moveInputX.Value);
+                MovementX(moveInputX.Value, speed, isGrounded);
             }
             else
             {
-                Move(0, speed);
-                //Debug.Log("stillX: " + moveInputX.Value);
+                MovementX(0, speed, isGrounded);
             }
         }
         else
@@ -94,25 +126,94 @@ public class PlayerController : MonoBehaviour {
                 }
             }
         }
-        
+
+        MovementY(moveInputY.Value, speed, canJump, isGrounded);
     }
 
-    protected void Move(float movementInput, FloatReference speedToMove)
+    protected void MovementX(float movementInputX, FloatReference speedToMoveX,  BoolVariable isGrounded)
     {
         isGrounded.boolState = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
-        rb2d.velocity = new Vector2(movementInput * speedToMove.Value, rb2d.velocity.y);
+        rb2d.velocity = new Vector2(movementInputX * speedToMoveX.Value, rb2d.velocity.y);
 
-        if (facingRight == false && movementInput > 0)
+        if (facingRight.boolState == false && movementInputX > 0)
         {
             Flip();
         }
-        else if (facingRight == true && movementInput < 0)
+        else if (facingRight.boolState == true && movementInputX < 0)
         {
             Flip();
         }
     }
     
+    protected void MovementY(float movementInputY, FloatReference speedToMoveY, BoolVariable canJump, BoolVariable isGrounded)
+    {
+        if (canJump.boolState == true)
+        {
+            FastFall();
+            rb2d.gravityScale = 1;
+            Jump();
+        }
+    }
+
+    void Jump()
+    {
+
+        if (isGrounded.boolState)
+        {
+            //Debug.Log("Reseting the jump");
+            ResetJump();
+        }
+
+        if (Input.GetButtonDown("Jump") && remainingJumps > 0)
+        {
+            //Debug.Log("Doing this from remainingExtrajumps");
+            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpSpeed);
+            isJumping = true;
+            remainingJumps--;
+            //Debug.Log(remainingJumps);
+        }
+
+        if (Input.GetButton("Jump") && isJumping == true)
+        {
+            //Debug.Log("Doing this from lengthen jump");
+            if (jumpTimeCounter > 0)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, jumpSpeed);
+                jumpTimeCounter -= Time.fixedDeltaTime;
+                //Debug.Log(jumpTimeCounter);
+            }
+            else
+            {
+                isJumping = false;
+            }
+
+        }
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            //Debug.Log("Doing this from jump button up");
+            isJumping = false;
+        }
+
+    }
+
+    private void FastFall()
+    {
+        if(rb2d.velocity.y > 0)
+        {
+            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplyer - 1) * Time.deltaTime;
+        }
+        if (rb2d.velocity.y < 0)
+        {
+            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplyer - 1) * Time.deltaTime;
+        }
+        else if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0)
+        {
+            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (lowMultiplyer - 1) * Time.deltaTime;
+        }
+    }
+
     private void BounceBack()
     {
         if (damagedEnemy.boolState == true && moveInputY.Value == -1)
@@ -173,16 +274,35 @@ public class PlayerController : MonoBehaviour {
             knockbackCoolDown = Time.time + knockBackTime;
             KnockBack(collision.collider.transform.position, knockBackY, knockBackX);
         }
-        
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        //if (collision.collider.CompareTag("Walls"))
+        //{
+        //    Debug.Log("here");
+        //    isClimbing.boolState = true;
+        //}
     }
 
     private void Flip()
     {
-        facingRight = !facingRight;
+        facingRight.boolState = !facingRight.boolState;
         Vector3 scaler = transform.localScale;
 
         scaler.x *= -1;
         transform.localScale = scaler;
     }
 
+    private void ResetJump()
+    {
+        remainingJumps = (int)extraJumps.Value + 1;
+        jumpTimeCounter = jumpTimer;
+        isJumping = false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireCube(transform.position, transform.lossyScale * 2);
+    }
 }
