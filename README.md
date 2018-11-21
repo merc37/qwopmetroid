@@ -2,7 +2,7 @@ COGS Sem1
 
 The following lines explain the game from the beginign as it has been progressing ahead.
 
-Main Character:(Name For Now : FOO)
+	Main Character:(Name For Now : FOO)
                 Is a male, Age 18 - 22
                 Suffering from depression.
 PLOT:
