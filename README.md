@@ -2,12 +2,13 @@ COGS Sem1
 
 The following lines explain the game from the beginign as it has been progressing ahead.
 
-Main Character:(Name For Now : FOO)
+	Main Character:(Name For Now : FOO)
                 Is a male, Age 18 - 22
                 Suffering from depression.
-PLOT:
+	PLOT:
     FOO is suffering from depression due to many different reasons in their life. FOO is tryign to defeat the personality that he had created to protect himself when he was going through tough times but now unfortunately this personality has turned against him and is taking over him. He is unable to express himself and is now stuck inside his head, hoping to be able to make a compromise, ackwnoledge and defeat the dark side of his personality that has made him loose control over himself.
-GAME IDEA:
+	
+	GAME IDEA:
         To save FOO from getting completely over taken by depression the player is fighting the bad/ scary memories or the worst parts of life that FOO went through so that FOO can come out of depression.Being stuck insiide FOO's head the player is clearing out FOO's mind by killing all the bad mosters and "germs?" that are spawwing inside his head, different parts of the brain are different rooms on the map. Different parts of the brain each have different functionalities each of which are rooms in themselves. 
         
         -> The players movement is limited due to fear and because of this he can only travel limited distances before loosing his movement compeltely. The enemies drop pickups because of which the player will be able to move for longer distances. Defeating a boss will give the player the oppourtinity to earn infinite movement in a direction or the player could choose another reward.
