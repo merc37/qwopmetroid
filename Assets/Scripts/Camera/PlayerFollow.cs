@@ -23,19 +23,27 @@ public class PlayerFollow : MonoBehaviour {
         if(targetX.Value <  transform.position.x - deadzoneBounds.bounds.extents.x || targetX.Value > transform.position.x + deadzoneBounds.bounds.extents.x)
         {
             Vector3 moveVelocity = new Vector3(targetX.Value - transform.position.x, 0, 0);
-            transform.Translate(moveVelocity * moveSpeedMultiplier * Time.deltaTime);
+            transform.Translate(moveVelocity * moveSpeedMultiplier * Time.fixedDeltaTime);
         }
 
-        if ( targetY.Value > transform.position.y + deadzoneBounds.bounds.extents.y)
+        if (targetY.Value > transform.position.y || targetY.Value < transform.position.y)
         {
             Vector3 moveVelocity = new Vector3(0, targetY.Value - transform.position.y, 0);
-            transform.Translate(moveVelocity * moveSpeedMultiplier * Time.deltaTime);
+            transform.Translate(moveVelocity * moveSpeedMultiplier * Time.fixedDeltaTime);
         }
 
-        else if (targetY.Value < transform.position.y)
+        if (targetY.Value < transform.position.y)
         {
-            Vector3 moveVelocity = new Vector3(0, playerFallingSpeed.Value, 0);
-            transform.Translate(moveVelocity * Time.deltaTime);
+            if(playerFallingSpeed.Value == 0)
+            {
+                Vector3 moveVelocity = new Vector3(0, targetY.Value - transform.position.y, 0);
+                transform.Translate(moveVelocity * moveSpeedMultiplier * Time.fixedDeltaTime);
+            }
+            else
+            {
+                Vector3 moveVelocity = new Vector3(0, playerFallingSpeed.Value, 0);
+                transform.Translate(moveVelocity * Time.fixedDeltaTime);
+            }
         }
 
     }

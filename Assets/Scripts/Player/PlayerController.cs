@@ -26,12 +26,12 @@ public class PlayerController : MonoBehaviour {
     [Header(header: "Player Jump Related:")]
     public int remainingJumps;
     public FloatReference extraJumps;
-    public float jumpHeight;
+    public float minJumpHeight;
+    public float maxJumpHeight;
     public float halfJumpTime;
-    public float jumpSpeed;
+    public float maxJumpSpeed;
+    public float minJumpSpeed;
     public BoolVariable canJump;
-    private float jumpTimeCounter;
-    public float jumpTimer;
     private bool isJumping;
 
     public float fallMultiplyer = 2.5f;
@@ -77,7 +77,11 @@ public class PlayerController : MonoBehaviour {
         }
         if(halfJumpTime != 0)
         {
-            jumpSpeed = (2 * jumpHeight) / halfJumpTime;
+            maxJumpSpeed = (2 * maxJumpHeight) / halfJumpTime;
+        }
+        if(minJumpHeight != 0)
+        {
+            minJumpSpeed = (2 * minJumpHeight) / halfJumpTime;
         }
     }
 
@@ -161,44 +165,29 @@ public class PlayerController : MonoBehaviour {
 
     void Jump()
     {
-
-        if (isGrounded.boolState)
+        if (isGrounded.boolState == true && rb2d.velocity.y == 0)
         {
             //Debug.Log("Reseting the jump");
             ResetJump(true);
         }
-
         if (Input.GetButtonDown("Jump") && remainingJumps > 0)
         {
             //Debug.Log("Doing this from remainingExtrajumps");
-            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpSpeed);
+            rb2d.velocity = new Vector2(rb2d.velocity.x, maxJumpSpeed);
             isJumping = true;
             remainingJumps--;
-            //Debug.Log(remainingJumps);
-        }
-
-        if (Input.GetButton("Jump") && isJumping == true)
-        {
-            //Debug.Log("Doing this from lengthen jump");
-            if (jumpTimeCounter > 0)
-            {
-                rb2d.velocity = new Vector2(rb2d.velocity.x, jumpSpeed);
-                jumpTimeCounter -= Time.fixedDeltaTime;
-                //Debug.Log(jumpTimeCounter);
-            }
-            else
-            {
-                isJumping = false;
-            }
-
+            Debug.Log(remainingJumps);
         }
 
         if (Input.GetButtonUp("Jump"))
         {
             //Debug.Log("Doing this from jump button up");
+            if(rb2d.velocity.y > minJumpSpeed)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, minJumpSpeed);
+            }
             isJumping = false;
         }
-
     }
 
     private void FastFall()
@@ -293,12 +282,10 @@ public class PlayerController : MonoBehaviour {
         if (fullReset)
         {
             remainingJumps = (int)extraJumps.Value + 1;
-            jumpTimeCounter = jumpTimer;
             isJumping = false;
         }
         else
         {
-            jumpTimeCounter = jumpTimer;
             isJumping = false;
         }
     }

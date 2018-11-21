@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour {
 
-    public ShopList playerInventoryList;
-    public ShopList displayPlayerInventoryList;
+    public CharacterItemsList playerInventoryList;
+    public CharacterItemsList displayPlayerInventoryList;
 
     public Item pickupItem;
     public Item itemToRemove;
@@ -95,53 +95,6 @@ public class Inventory : MonoBehaviour {
             Debug.LogWarning("THIS IS A WARNING item IS NULLcant add item");
         }
     }
-
-    //private void RemoveItem(Item item)
-    //{
-    //    if (item != null)
-    //    {
-    //        int itemIndex = item.itemNumber;
-
-    //        for (int i = 0; i < playerInventoryList.itemsList.Count; i++)
-    //        {
-    //            if( itemIndex == playerInventoryList.itemsList[i].itemNumber)
-    //            {
-    //                if (playerInventoryList.itemsList[i].stackable == true)
-    //                {
-    //                    if(playerInventoryList.ItemAndStackNumber(item).y > 1)
-    //                    {
-    //                        //playerInventoryList.itemsList[itemIndex].itemStack--;
-    //                        playerInventoryList.DecItemStackNumber(item);
-    //                        displayPlayerInventoryList.itemsList = playerInventoryList.itemsList;
-    //                        Debug.Log("stackableItemHasBeenRemoved");
-    //                    }
-    //                    else
-    //                    {
-    //                        //playerInventoryList.itemsList[itemIndex].itemStack--;
-    //                        playerInventoryList.RemoveItemFromStack(item);
-    //                        playerInventoryList.itemsList.Remove(item);
-    //                        displayPlayerInventoryList.itemsList = playerInventoryList.itemsList;
-
-    //                        Debug.Log("stackableItemHasBeenRemoved");
-    //                    }
-
-    //                }
-    //                else
-    //                {
-    //                    playerInventoryList.itemsList.Remove(item);
-    //                    playerInventoryList.RemoveItemFromStack(item);
-    //                    displayPlayerInventoryList.itemsList = playerInventoryList.itemsList;
-    //                    Debug.Log("ItemHasBeenRemoved");
-    //                }
-    //            }
-    //        }
-
-    //    }
-    //    else
-    //    {
-    //        Debug.LogWarning("THIS IS A WARNING item IS NULL cant remove item");
-    //    }
-    //}
 
     private void ActivateInventory()
     {

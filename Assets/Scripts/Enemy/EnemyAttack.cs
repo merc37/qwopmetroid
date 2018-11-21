@@ -26,7 +26,7 @@ public class EnemyAttack : MonoBehaviour {
 
     void Start() {
         startTimeBtwAttack = weaponType.timeBtwAttack.Value;
-        weaponDmg = 1;
+        weaponDmg = weaponType.Damage.Value;
         colType = weaponType.ColliderType;
         if(colType == ColliderType.Square) {
             attackRangeX = weaponType.AttackRangeX.Value;
@@ -61,7 +61,7 @@ public class EnemyAttack : MonoBehaviour {
         } else if(colliderTypeNumber == ColliderType.Circle) {
             Collider2D enemyCollider = Physics2D.OverlapCircle(attackPos.transform.position, attackRadius, whatIsEnemy);
             if(enemyCollider) {
-                playerHealth.Variable.Value -= weaponDmg;
+                playerHealth.Variable.Value -= 1;
             }
         }
     }
