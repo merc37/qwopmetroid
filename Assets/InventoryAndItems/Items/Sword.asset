@@ -28,7 +28,6 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 015636824906b3748b060393e2e34095, type: 2}
-  ColliderType: 0
   AttackRangeX:
     UseConstant: 1
     ConstantValue: 1
@@ -46,3 +45,4 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: f55db98ee5e36074d812202fb9168143, type: 2}
+  weaponColType: 0

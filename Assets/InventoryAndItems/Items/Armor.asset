@@ -17,10 +17,6 @@ MonoBehaviour:
   itemDescription: The usable Protector
   itemNumber: 3
   stackable: 0
-  currentShopIndex:
-    UseConstant: 1
-    ConstantValue: 0
-    Variable: {fileID: 0}
   DamageReduction: 55
   speedBonus: 0
   directionJuiceBonus: {x: 0, y: 0, z: 0, w: 0}
