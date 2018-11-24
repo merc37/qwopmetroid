@@ -39,22 +39,13 @@ public class GroundEnemyMovement : MonoBehaviour {
         }
     }
 
-    private void Flip()
-    {
-        facingRight = !facingRight;
-        Vector3 scaler = transform.localScale;
-
-        scaler.x *= -1;
-        transform.localScale = scaler;
-    }
-
     private void ChangeWayPoint()
     {
         if(direction < 0)
         {
             if (transform.position.x <= waypoints[currentWaypointIndex].position.x)
             {
-                Debug.Log("Changed Way Point to: " + currentWaypointIndex);
+                //Debug.Log("Changed Way Point to: " + currentWaypointIndex);
                 if (currentWaypointIndex + 1 < waypoints.Length)
                 {
                     currentWaypointIndex++;
@@ -69,7 +60,7 @@ public class GroundEnemyMovement : MonoBehaviour {
         {
             if (transform.position.x >= waypoints[currentWaypointIndex].position.x)
             {
-                Debug.Log("Changed Way Point to: " + currentWaypointIndex);
+                //Debug.Log("Changed Way Point to: " + currentWaypointIndex);
                 if (currentWaypointIndex + 1 < waypoints.Length)
                 {
                     currentWaypointIndex++;
@@ -80,5 +71,14 @@ public class GroundEnemyMovement : MonoBehaviour {
                 }
             }
         }
+    }
+
+    private void Flip()
+    {
+        facingRight = !facingRight;
+        Vector3 scaler = transform.localScale;
+
+        scaler.x *= -1;
+        transform.localScale = scaler;
     }
 }

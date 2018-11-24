@@ -20,8 +20,10 @@ public class PlayerController : MonoBehaviour {
     public FloatReference moveInputX;
     public BoolVariable moveInputedX;
     public FloatReference moveInputY;
+    public float oldMoveInputY;
     public BoolVariable moveInputedY;
-    public BoolVariable canMove;
+    public BoolVariable canMoveX;
+    public BoolVariable canMoveY;
     [Space]
     [Header(header: "Player Jump Related:")]
     public int remainingJumps;
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour {
     public float maxJumpSpeed;
     public float minJumpSpeed;
     public BoolVariable canJump;
+    public BoolVariable jumpRestricted;
     private bool isJumping;
 
     public float fallMultiplyer = 2.5f;
@@ -106,16 +109,9 @@ public class PlayerController : MonoBehaviour {
 
     private void FixedUpdate ()
     {
-        if (canMove.boolState == true)
+        if (canMoveX.boolState == true)
         {
-            if (moveInputedX.boolState)
-            {
-                MovementX(moveInputX.Value, speed, isGrounded);
-            }
-            else
-            {
-                MovementX(0, speed, isGrounded);
-            }
+            MovementX(moveInputX.Value, speed, isGrounded);
         }
         else
         {
@@ -123,13 +119,15 @@ public class PlayerController : MonoBehaviour {
             {
                 if (Time.time >= knockbackCoolDown)
                 {
-                    canMove.boolState = true;
+                    canMoveX.boolState = true;
                     playerKnockedBack = false;
                 }
             }
         }
-
-        MovementY(moveInputY.Value, speed, canJump, isGrounded);
+        if(canMoveY.boolState == true)
+        {
+            MovementY(moveInputY.Value, speed, canJump, isGrounded);
+        }
     }
 
     protected void MovementX(float movementInputX, FloatReference speedToMoveX,  BoolVariable isGrounded)
@@ -170,23 +168,27 @@ public class PlayerController : MonoBehaviour {
             //Debug.Log("Reseting the jump");
             ResetJump(true);
         }
-        if (Input.GetButtonDown("Jump") && remainingJumps > 0)
+        if (((Input.GetButtonDown("Vertical") && Input.GetAxisRaw("Vertical") > 0) && remainingJumps > 0) && jumpRestricted.boolState == false)
         {
+            //Debug.Log("moveInputY was Greater than 0");
             //Debug.Log("Doing this from remainingExtrajumps");
             rb2d.velocity = new Vector2(rb2d.velocity.x, maxJumpSpeed);
             isJumping = true;
             remainingJumps--;
-            Debug.Log(remainingJumps);
+            oldMoveInputY = moveInputY.Value;
+            //Debug.Log(remainingJumps);
         }
 
-        if (Input.GetButtonUp("Jump"))
+        if (Input.GetButtonUp("Vertical") && Input.GetAxisRaw("Vertical") >= 0)
         {
+            //Debug.Log("oldMoveInputY was Greater than 0");
             //Debug.Log("Doing this from jump button up");
-            if(rb2d.velocity.y > minJumpSpeed)
+            if (rb2d.velocity.y > minJumpSpeed)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, minJumpSpeed);
             }
             isJumping = false;
+            oldMoveInputY = 0;
         }
     }
 
@@ -254,15 +256,15 @@ public class PlayerController : MonoBehaviour {
         }
 
         playerKnockedBack = true;
-        Debug.Log(rb2d.velocity);
+        //Debug.Log(rb2d.velocity);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Enemy"))
         {
-            playerHealth.Variable.Value -= collision.gameObject.GetComponent<Enemy>().damagePlayer;
-            canMove.boolState = false;
+            playerHealth.Variable.Value -= collision.gameObject.GetComponent<EnemyProperties>().damageAmount;
+            canMoveX.boolState = false;
             knockbackCoolDown = Time.time + knockBackTime;
             KnockBack(collision.collider.transform.position, knockBackY, knockBackX);
         }

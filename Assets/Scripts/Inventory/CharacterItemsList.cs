@@ -48,7 +48,7 @@ public class CharacterItemsList : ScriptableObject {
             }
             else
             {
-                Debug.Log("Could not pickup: " + item.itemName + " because no more space in inventory");
+                //Debug.Log("Could not pickup: " + item.itemName + " because no more space in inventory");
                 return false;
             }
         }

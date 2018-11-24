@@ -9,6 +9,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ccc2fb4b0847e964ca0db11c37ecb442, type: 3}
-  m_Name: HorizontalInputBool
+  m_Name: JumpInputed
   m_EditorClassIdentifier: 
   boolState: 0

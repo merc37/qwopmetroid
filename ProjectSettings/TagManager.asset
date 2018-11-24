@@ -8,8 +8,8 @@ TagManager:
   - Shop
   - PickUp
   - ItemPickUp
-  - Enemy
   - Walls
+  - Enemy
   layers:
   - Default
   - TransparentFX

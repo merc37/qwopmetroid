@@ -23,8 +23,8 @@ public class Attack : MonoBehaviour {
 
     public LayerMask whatIsEnemy;
 
-    public FloatReference[] playerInputs = new FloatReference[2];
-    public BoolVariable[] playerInputBools = new BoolVariable[2];
+    public FloatReference[] playerAxisInputs = new FloatReference[2];
+    public BoolVariable[] playerAxisBools = new BoolVariable[2];
     public Collider2D[] enemyColliders;
 
 
@@ -58,12 +58,15 @@ public class Attack : MonoBehaviour {
         {
             //Debug.Log("Square Collider Reached");
 
-            enemyColliders = Physics2D.OverlapBoxAll(AttackPosition(playerInputs, playerInputBools), new Vector2(currentWeapon.AttackRangeX.Value, currentWeapon.AttackRangeY.Value) * 2, boxAngle, whatIsEnemy);
+            enemyColliders = Physics2D.OverlapBoxAll(AttackPosition(playerAxisInputs, playerAxisBools), new Vector2(currentWeapon.AttackRangeX.Value, currentWeapon.AttackRangeY.Value) * 2, boxAngle, whatIsEnemy);
 
             foreach (Collider2D col2d in enemyColliders)
             {
-                col2d.GetComponent<Enemy>().DamageTaken(weaponDmg);
-                damagedEnemy.boolState = true;
+                if(col2d is BoxCollider2D)
+                {
+                    col2d.GetComponent<EnemyProperties>().DamageTaken(weaponDmg);
+                    damagedEnemy.boolState = true;
+                }
             }
 
         }
@@ -71,12 +74,15 @@ public class Attack : MonoBehaviour {
         else if (colliderType == ColliderType.Circle)
         {
             //Debug.Log("Circle Collider Reached");
-            enemyColliders = Physics2D.OverlapCircleAll(AttackPosition(playerInputs, playerInputBools), currentWeapon.AttackRadius.Value, whatIsEnemy);
+            enemyColliders = Physics2D.OverlapCircleAll(AttackPosition(playerAxisInputs, playerAxisBools), currentWeapon.AttackRadius.Value, whatIsEnemy);
 
             foreach (Collider2D col2D in enemyColliders)
             {
-                col2D.GetComponent<Enemy>().DamageTaken(weaponDmg);
-                damagedEnemy.boolState = true;
+                if(col2D is BoxCollider2D)
+                {
+                    col2D.GetComponent<EnemyProperties>().DamageTaken(weaponDmg);
+                    damagedEnemy.boolState = true;
+                }
             }
         }
     }
@@ -149,16 +155,16 @@ public class Attack : MonoBehaviour {
         {
             if (currentWeapon.ColliderType == ColliderType.Circle)
             {
-                Gizmos.DrawWireSphere(AttackPosition(playerInputs, playerInputBools), currentWeapon.AttackRadius.Value);
+                Gizmos.DrawWireSphere(AttackPosition(playerAxisInputs, playerAxisBools), currentWeapon.AttackRadius.Value);
             }
             else
             {
-                Gizmos.DrawWireCube(AttackPosition(playerInputs, playerInputBools), new Vector3(currentWeapon.AttackRangeX.Value, currentWeapon.AttackRangeY.Value, 0));
+                Gizmos.DrawWireCube(AttackPosition(playerAxisInputs, playerAxisBools), new Vector3(currentWeapon.AttackRangeX.Value, currentWeapon.AttackRangeY.Value, 0));
             }
         }
         else
         {
-            Gizmos.DrawSphere(AttackPosition(playerInputs, playerInputBools), 0.5f);
+            Gizmos.DrawSphere(AttackPosition(playerAxisInputs, playerAxisBools), 0.5f);
         }
     }
 }

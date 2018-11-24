@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccc2fb4b0847e964ca0db11c37ecb442, type: 3}
-  m_Name: CanMoveInput
+  m_Script: {fileID: 11500000, guid: 47a96558888cb9d40a8ee7b95160932f, type: 3}
+  m_Name: TotalMovesRight
   m_EditorClassIdentifier: 
-  boolState: 0
+  Value: 20

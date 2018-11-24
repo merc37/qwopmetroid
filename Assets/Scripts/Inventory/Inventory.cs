@@ -19,17 +19,17 @@ public class Inventory : MonoBehaviour {
     [SerializeField] GameObject inventoryUI;
 
     [SerializeField] Transform itemSlotsParent;
-    [SerializeField] InventorySlot[] inventorySlots;
+    //[SerializeField] InventorySlot[] inventorySlots;
 
     public FloatReference numberOfItemsWithPlayer;
 
-    private void OnValidate()
-    {
-        if (itemSlotsParent != null)
-        {
-            inventorySlots = itemSlotsParent.GetComponentsInChildren<InventorySlot>();
-        }
-    }
+    //private void OnValidate()
+    //{
+    //    if (itemSlotsParent != null)
+    //    {
+    //        inventorySlots = itemSlotsParent.GetComponentsInChildren<InventorySlot>();
+    //    }
+    //}
 
     private void Start()
     {

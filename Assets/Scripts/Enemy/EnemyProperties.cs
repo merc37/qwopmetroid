@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+public class EnemyProperties : MonoBehaviour {
 
     public float health;
-    public float damagePlayer = 5;
+    public float damageAmount = 5;
 
     private float initialEnemyHealth;
 
@@ -23,6 +23,6 @@ public class Enemy : MonoBehaviour {
     public void DamageTaken(float dmgFromPlayer)
     {
         health -= dmgFromPlayer;
-        Debug.Log("DamageTaken");
+        //Debug.Log("DamageTaken");
     }
 }

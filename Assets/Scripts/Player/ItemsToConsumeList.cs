@@ -18,7 +18,7 @@ public class ItemsToConsumeList : ScriptableObject
                 if(playerHealth.Variable.Value < 10)
                 {
                     playerHealth.Variable.Value += itemToConsume.bonousHealth;
-                    Debug.Log(playerHealth.Variable.Value);
+                    //Debug.Log(playerHealth.Variable.Value);
                     return true;
                 }
             }
