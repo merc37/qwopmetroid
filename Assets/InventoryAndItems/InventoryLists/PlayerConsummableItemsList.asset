@@ -14,7 +14,7 @@ MonoBehaviour:
   playerHealth:
     UseConstant: 0
     ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 619c6db238b16e24b8ddb1e583c99df2, type: 2}
+    Variable: {fileID: 11400000, guid: f11512b539f472c46916bdae2e68faf8, type: 2}
   playerSpeed:
     UseConstant: 0
     ConstantValue: 0

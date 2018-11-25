@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 61397459190922526}
   - component: {fileID: 114242677935355540}
   - component: {fileID: 114635704471802000}
+  - component: {fileID: 114748228442279482}
   m_Layer: 12
   m_Name: AirEnemy
   m_TagString: Enemy
@@ -158,3 +159,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   changeWaypoint: {fileID: 0}
+--- !u!114 &114748228442279482
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1953385812044998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5160ab6400ea0f4c8f04ef9f7b485b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: f11512b539f472c46916bdae2e68faf8, type: 2}
+  propertiesOfThisEnemy: {fileID: 114242677935355540}

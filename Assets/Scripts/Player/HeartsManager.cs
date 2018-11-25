@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HeartsManager : MonoBehaviour {
 
     public FloatReference playerHealth;
-    [SerializeField] int numberOfHEartsVisible;
+    [SerializeField]private int numberOfHeartsVisible;
 
     public Transform heartsParent;
     public Image[] hearts;
@@ -17,32 +17,42 @@ public class HeartsManager : MonoBehaviour {
     private void OnValidate()
     {
         hearts = heartsParent.GetComponentsInChildren<Image>();
+        //UpdateHeartsUI();
     }
 
     private void Update()
     {
+        UpdateHeartsUI();
+    }
 
-        if(playerHealth.Value > numberOfHEartsVisible)
+    private void UpdateHeartsUI()
+    {
+        if(playerHealth != null)
         {
-            playerHealth.Variable.Value = numberOfHEartsVisible;
-        }
-        for (int i = 0; i < hearts.Length; i++)
-        {
-            if(i < playerHealth.Value)
+            if (playerHealth.Variable.Value > numberOfHeartsVisible)
             {
-                hearts[i].sprite = fullHeart;
+                playerHealth.Variable.Value = numberOfHeartsVisible;
             }
-            else
+            for (int i = 0; i < hearts.Length; i++)
             {
-                hearts[i].sprite = emptyHeart;
-            }
-            if(i < numberOfHEartsVisible)
-            {
-                hearts[i].enabled = true;
-            }
-            else
-            {
-                hearts[i].enabled = false;
+                if (i < playerHealth.Variable.Value)
+                {
+                    hearts[i].sprite = fullHeart;
+                    hearts[i].color = Color.white;
+                }
+                else
+                {
+                    hearts[i].sprite = emptyHeart;
+                    hearts[i].color = Color.grey;
+                }
+                if (i < numberOfHeartsVisible)
+                {
+                    hearts[i].enabled = true;
+                }
+                else
+                {
+                    hearts[i].enabled = false;
+                }
             }
         }
     }

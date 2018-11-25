@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114067882999743194}
   - component: {fileID: 114350374565917558}
   - component: {fileID: 114072643198165812}
+  - component: {fileID: 114777808950222196}
   m_Layer: 12
   m_Name: GroundedEnemy
   m_TagString: Enemy
@@ -215,3 +216,19 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &114777808950222196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1057127238837546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5160ab6400ea0f4c8f04ef9f7b485b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: f11512b539f472c46916bdae2e68faf8, type: 2}
+  propertiesOfThisEnemy: {fileID: 114067882999743194}

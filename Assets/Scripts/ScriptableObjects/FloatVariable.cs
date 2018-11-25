@@ -14,7 +14,14 @@ public class FloatReference
     {
         get
         {
-            return UseConstant ? ConstantValue : Variable.Value;
+            if (UseConstant)
+            {
+                return ConstantValue;
+            }
+            else
+            {
+                return Variable.Value;
+            }
         }
     }
 

@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour {
     [Space]
     [Header(header: "Character Related")]
     public FloatReference playerHealth;
-    public BoolVariable playerWasDamaged;
+    //public BoolVariable playerWasDamaged;
     public FloatReference speed;
     [Space]
     [Header(header: "Player MoveInput Related:")]
@@ -86,6 +86,8 @@ public class PlayerController : MonoBehaviour {
         {
             minJumpSpeed = (2 * minJumpHeight) / halfJumpTime;
         }
+
+        playerHealth.Variable.Value = 10;
     }
 
     private void Awake ()
@@ -212,7 +214,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (damagedEnemy.boolState == true && moveInputY.Value == -1)
         {
-            Debug.Log("In HEre in BOUNCE BACK");
+            //Debug.Log("In HEre in BOUNCE BACK");
             rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Abs(downSlashUpVelocity));
             damagedEnemy.boolState = false;
         }
@@ -263,10 +265,11 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.collider.CompareTag("Enemy"))
         {
-            playerHealth.Variable.Value -= collision.gameObject.GetComponent<EnemyProperties>().damageAmount;
+            //playerHealth.Variable.Value -= collision.gameObject.GetComponent<EnemyProperties>().damageAmount;
             canMoveX.boolState = false;
             knockbackCoolDown = Time.time + knockBackTime;
             KnockBack(collision.collider.transform.position, knockBackY, knockBackX);
+            //Debug.Log(playerHealth.Variable.Value);
         }
     }
 
