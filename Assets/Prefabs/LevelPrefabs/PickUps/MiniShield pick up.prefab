@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212773576265943582}
   - component: {fileID: 61067425347290968}
   - component: {fileID: 114223140133949154}
+  - component: {fileID: 114502039600964796}
   m_Layer: 0
   m_Name: MiniShield pick up
   m_TagString: PickUp
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1944345121935634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.15, y: 5.06, z: 0}
+  m_LocalPosition: {x: -5.15, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -80,6 +81,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: ae9e5f8b72c06ad4db6f51b924e89e0c, type: 2}
   destroyItem: 0
+--- !u!114 &114502039600964796
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1944345121935634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c371c7075660a44b3eaa59fbdbad2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 1024
+  fallSpeed: {x: 0, y: 0}
+  isGrounded: 0
 --- !u!212 &212773576265943582
 SpriteRenderer:
   m_ObjectHideFlags: 1

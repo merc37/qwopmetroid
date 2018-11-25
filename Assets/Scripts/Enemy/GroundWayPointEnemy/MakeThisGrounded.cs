@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class MakingEnemyGrounded : MonoBehaviour {
+public class MakeThisGrounded : MonoBehaviour {
 
     public LayerMask whatIsGround;
     private Collider2D collider2d;
@@ -12,10 +12,15 @@ public class MakingEnemyGrounded : MonoBehaviour {
     private void OnValidate()
     {
         collider2d = gameObject.GetComponent<Collider2D>();
-        MakeEnemyGrounded();
+        GroundThisObject();
     }
 
-    private void MakeEnemyGrounded()
+    private void Start()
+    {
+        GroundThisObject();
+    }
+
+    private void GroundThisObject()
     {
         RaycastHit2D hitInfo = Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y - collider2d.bounds.extents.y, transform.position.z), Vector2.down, Mathf.Infinity, whatIsGround);
         if(hitInfo == true)

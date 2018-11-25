@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 212473015963847522}
   - component: {fileID: 61861965285696988}
   - component: {fileID: 114309511605136936}
-  - component: {fileID: 114415176956245982}
+  - component: {fileID: 114447029382683228}
   m_Layer: 0
-  m_Name: HealthPotion pick up
+  m_Name: LeftPotion pick up
   m_TagString: PickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,9 +79,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6eb76baab8b884299cfc0f7ef71eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: a58f2cd689324eb4f9eb222c3c66a3de, type: 2}
+  item: {fileID: 11400000, guid: a8c828d70f5eb91448916d0443bd09c1, type: 2}
   destroyItem: 0
---- !u!114 &114415176956245982
+--- !u!114 &114447029382683228
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,7 +132,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e3c5b5328a756354fafc8d5ed35e6169, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aa453bfb68b88884eb1c58344eed5551, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

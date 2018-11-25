@@ -8,7 +8,7 @@ public class AirEnemyPatrol : MonoBehaviour {
     [SerializeField] float normalMoveSpeed = 5;
     [SerializeField] [Range(0 , 1)] private float bobbingStrength = 0.3f;
     public Transform[] waypoints;
-    public BoolVariable changeWaypoint;
+    public bool changeWaypoint;
 
     private int currentWaypointIndex;
     private Vector3 originalPosition;
@@ -21,6 +21,11 @@ public class AirEnemyPatrol : MonoBehaviour {
 	
 	void FixedUpdate () {
         ChangeWayPoint();
+        if(changeWaypoint == true)
+        {
+            ChangeWayPointDueToCollision();
+            changeWaypoint = false;
+        }
         MoveToPosition(waypoints, currentWaypointIndex);
 	}
 
@@ -44,6 +49,14 @@ public class AirEnemyPatrol : MonoBehaviour {
 
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            changeWaypoint = true;
+        }
+    }
+
     private void ChangeWayPoint()
     {
         //Debug.Log((transform.position - waypoints[currentWaypointIndex].position).magnitude);
@@ -57,6 +70,19 @@ public class AirEnemyPatrol : MonoBehaviour {
             {
                 currentWaypointIndex = 0;
             }
+        }
+    }
+
+    private void ChangeWayPointDueToCollision()
+    {
+        //Debug.Log((transform.position - waypoints[currentWaypointIndex].position).magnitude);
+        if (currentWaypointIndex + 1 < waypoints.Length)
+        {
+            currentWaypointIndex++;
+        }
+        else
+        {
+            currentWaypointIndex = 0;
         }
     }
 

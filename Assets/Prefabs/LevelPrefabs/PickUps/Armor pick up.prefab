@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212736942420690242}
   - component: {fileID: 61375761682682958}
   - component: {fileID: 114232754304763200}
+  - component: {fileID: 114917563304474144}
   m_Layer: 0
   m_Name: Armor pick up
   m_TagString: PickUp
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1966659014542910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.62, y: 4.87, z: 0}
+  m_LocalPosition: {x: -2.62, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -80,6 +81,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 3aa521b38ca37fa45b95a69851f04b5b, type: 2}
   destroyItem: 0
+--- !u!114 &114917563304474144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1966659014542910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c371c7075660a44b3eaa59fbdbad2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 1024
+  fallSpeed: {x: 0, y: 0}
+  isGrounded: 0
 --- !u!212 &212736942420690242
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -19,3 +19,19 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 09afbb8606e21ff459f762c05b6b9bfe, type: 2}
+  playerLeftRemainingMoves:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 87408843658466f4aa7cb35dd4172a4a, type: 2}
+  playerRightRemainingMoves:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: ba2a719be2a68bc409f8fa66a2538dae, type: 2}
+  playerJumpRemainingMoves:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: bb81c11e0569d8c4f8f3969879fc10b0, type: 2}
+  playerDownRemainingMoves:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 09b993872a4b51243a590ddaa2c2dba2, type: 2}

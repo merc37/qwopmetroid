@@ -5,6 +5,10 @@ using UnityEngine;
 public enum ConsumableTypes
 {
     healthRelated,
+    LeftMovementRelated,
+    RightMovementRelated,
+    JumpMovementRelated,
+    DownMovementRelated,
     SpeedRelated,
     AttackRelated
 }

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212030142845779370}
   - component: {fileID: 61505580992117822}
   - component: {fileID: 114860215938686332}
+  - component: {fileID: 114321364003123974}
   m_Layer: 0
   m_Name: Sword pick up
   m_TagString: PickUp
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1502039788374404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.28, y: 3.41, z: 0}
+  m_LocalPosition: {x: -7.28, y: -8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -67,6 +68,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114321364003123974
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1502039788374404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c371c7075660a44b3eaa59fbdbad2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 1024
+  fallSpeed: {x: 0, y: 0}
+  isGrounded: 0
 --- !u!114 &114860215938686332
 MonoBehaviour:
   m_ObjectHideFlags: 1

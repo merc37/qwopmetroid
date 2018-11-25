@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 224020965305122546}
   - component: {fileID: 114658262049087098}
   m_Layer: 5
-  m_Name: Weapon1 Slot
+  m_Name: Helmet Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
