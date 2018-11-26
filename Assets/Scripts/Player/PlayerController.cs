@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour {
     [Header(header: "Player Inventory Related:")]
     public EquippedItems playerEquippedItemsList;
     public CharacterItemsList playerInventoryList;
+    public BoolVariable canOpenMemoryPannel;
     [Space]
     [Header(header: "Player Physics Related:")]
     public BoolVariable isGrounded;
@@ -270,6 +271,18 @@ public class PlayerController : MonoBehaviour {
             knockbackCoolDown = Time.time + knockBackTime;
             KnockBack(collision.collider.transform.position, knockBackY, knockBackX);
             //Debug.Log(playerHealth.Variable.Value);
+        }
+        else if (collision.collider.CompareTag("Chest"))
+        {
+            canOpenMemoryPannel.boolState = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.collider.CompareTag("Chest"))
+        {
+            canOpenMemoryPannel.boolState = false;
         }
     }
 

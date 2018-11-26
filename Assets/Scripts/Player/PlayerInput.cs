@@ -20,6 +20,7 @@ public class PlayerInput : MonoBehaviour
 
     public BoolVariable canMoveInputX;
     public BoolVariable canMoveInputY;
+    public BoolVariable disableMovementLimiter;
 
     public FloatReference totalMovesLeft;
     public FloatReference totalMovesRight;
@@ -33,6 +34,11 @@ public class PlayerInput : MonoBehaviour
 
     private float oldAixsValuesX;
     private float oldAixsValuesY;
+
+    [SerializeField] float originalMovesLeft = 20;
+    [SerializeField] float originalMovesRight = 20;
+    [SerializeField] float originalMovesDown = 20;
+    [SerializeField] float originalMovesUp = 20;
 
     private void Start()
     {
@@ -50,7 +56,9 @@ public class PlayerInput : MonoBehaviour
         //{
         //    GetMovementInput();
         //}
+        CheckToResetMovementBools();
         GetMovementInput();
+        IfInSafeRoom(disableMovementLimiter);
         GetUIOpenInput();
     }
 
@@ -266,9 +274,34 @@ public class PlayerInput : MonoBehaviour
 
     private void CheckToResetMovementBools()
     {
-
+        if(totalMovesLeft.Variable.Value > 0)
+        {
+            restrictedLeft.boolState = false;
+        }
+        if (totalMovesRight.Variable.Value > 0)
+        {
+            restrictedRight.boolState = false;
+        }
+        if (totalMovesDown.Variable.Value > 0)
+        {
+            restrictedDown.boolState = false;
+        }
+        if (totalMovesUp.Variable.Value > 0)
+        {
+            restrictedUp.boolState = false;
+        }
     }
 
+    private void IfInSafeRoom(BoolVariable disableMovementLimiter)
+    {
+        if(disableMovementLimiter.boolState == true)
+        {
+            totalMovesDown.Variable.Value = originalMovesDown;
+            totalMovesUp.Variable.Value = originalMovesUp;
+            totalMovesLeft.Variable.Value = originalMovesLeft;
+            totalMovesRight.Variable.Value = originalMovesRight;
+        }
+    }
 }
 
 

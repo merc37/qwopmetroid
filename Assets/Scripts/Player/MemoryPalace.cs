@@ -7,13 +7,15 @@ public class MemoryPalace : MonoBehaviour {
 	public BoolVariable accessMemory;
     public GameObject memoryPanel;
 
+    public BoolVariable canOpenMemoryPannel;
+
 	// Use this for initialization
 	void Start () {
-		
+        canOpenMemoryPannel.boolState = false;
 	}
 
     void LateUpdate () {
-		if(accessMemory.boolState == true)
+        if (canOpenMemoryPannel.boolState == true && accessMemory.boolState == true)
         {
             memoryPanel.SetActive(!memoryPanel.activeSelf);
             accessMemory.boolState = false;
