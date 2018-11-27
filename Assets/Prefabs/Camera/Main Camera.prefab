@@ -142,6 +142,14 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 264491c8b7690e249bf773f43d93f747, type: 2}
   playerIsGrounded: {fileID: 11400000, guid: b96036d2298a6a14bbeab4359a22bf49, type: 2}
+  cameraBoundX:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 6eacb396248021d43a255680a275b7f3, type: 2}
+  cameraBoundY:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: bb98574f9c872494db9af4dc92eaa3e5, type: 2}
 --- !u!114 &114945220248664176
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -75,8 +75,6 @@ public class InventorySlot : MonoBehaviour {
 
             OnItemRemove();
             equippedItemsChanged.boolState = true;
-
-
         }
         else if (item is ConsummableItem)
         {

@@ -40,7 +40,7 @@ public class Dash : MonoBehaviour
             float direction = HorizontalInputValue.Value;
             dashTime = Time.time + dashCooldownTime;
             //HorizontalDown++;
-            Instantiate(dashEffect, rb.position, Quaternion.identity);
+            Instantiate(dashEffect, rb.position, Quaternion.Euler(90, 0, -direction * 90));
             DashPlayer(direction);
         }
     }

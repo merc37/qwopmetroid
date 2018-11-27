@@ -17,7 +17,7 @@ public class EquippableItem : Item
 {
     [Header("Addition Bonus")]
     [Space]
-    public int DamageReduction;
+    public int itemDamageReduction;
     public float speedBonus;
     public Vector4 directionJuiceBonus;
     [Space]

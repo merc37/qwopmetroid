@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 114559702601971094}
   - component: {fileID: 114554702020485316}
   - component: {fileID: 114401839891554336}
+  - component: {fileID: 114369943250347336}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -101,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1446402791536596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.52, y: 29.13, z: 0}
+  m_LocalPosition: {x: -3.26, y: 28.91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4291032107302164}
@@ -271,7 +272,7 @@ MonoBehaviour:
   dashSpeed: 175
   dashCooldownTime: 0.7
   slowDownDashFall: 1
-  dashEffect: {fileID: 1133702196097084, guid: 5060001f215910a4cb28a6894e2b5833, type: 2}
+  dashEffect: {fileID: 1598509753089254, guid: 8ca9b8254373dbc4fa775e2155cc5f3d, type: 2}
   Camera: {fileID: 0}
 --- !u!114 &114195242242512246
 MonoBehaviour:
@@ -285,6 +286,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1446402791536596}
+--- !u!114 &114369943250347336
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1446402791536596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad7e8f3637c710347a134ed110849b22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equippedItemsListChanged: {fileID: 11400000, guid: a426dd5697231734eb85ce85ad10b141,
+    type: 2}
+  damageReduction:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: e4dfad4951330634ebd312f5f7466b83, type: 2}
+  playerEquippedItemsList: {fileID: 11400000, guid: f388721a71471634b8a6d028c59988aa,
+    type: 2}
 --- !u!114 &114401839891554336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -301,19 +321,18 @@ MonoBehaviour:
     ConstantValue: 10
     Variable: {fileID: 11400000, guid: f11512b539f472c46916bdae2e68faf8, type: 2}
   numberOfHeartsVisible: 10
-  heartsParent: {fileID: 224305158445168656, guid: f431828fba59eb14aa4ad24cd37b77ac,
-    type: 2}
+  heartsParent: {fileID: 0}
   hearts:
-  - {fileID: 114754473789849226, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114243100985036570, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114198151378119362, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114954740836140746, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114708827464875016, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114076267984613358, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114797922843314974, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114774851217923982, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114171345161368938, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114571374834232826, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   fullHeart: {fileID: 21300000, guid: a732b4655ec300947ba5f1487df538ac, type: 3}
   emptyHeart: {fileID: 21300000, guid: 121b4b634bcead148b5f6f7849c27d1b, type: 3}
 --- !u!114 &114554702020485316

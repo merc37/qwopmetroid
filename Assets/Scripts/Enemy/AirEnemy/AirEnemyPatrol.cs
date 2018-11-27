@@ -51,10 +51,7 @@ public class AirEnemyPatrol : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
-        {
-            changeWaypoint = true;
-        }
+        changeWaypoint = true;
     }
 
     private void ChangeWayPoint()

@@ -211,4 +211,8 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: f11512b539f472c46916bdae2e68faf8, type: 2}
+  damageReduction:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: e4dfad4951330634ebd312f5f7466b83, type: 2}
   propertiesOfThisEnemy: {fileID: 114242677935355540}

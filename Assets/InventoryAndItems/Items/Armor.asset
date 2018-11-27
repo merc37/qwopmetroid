@@ -17,7 +17,7 @@ MonoBehaviour:
   itemDescription: The usable Protector
   itemNumber: 3
   stackable: 0
-  DamageReduction: 55
+  itemDamageReduction: 1
   speedBonus: 0
   directionJuiceBonus: {x: 0, y: 0, z: 0, w: 0}
   damageReductionPercentage: 75
