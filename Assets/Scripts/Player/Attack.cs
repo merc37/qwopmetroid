@@ -109,7 +109,7 @@ public class Attack : MonoBehaviour {
             attackPosition.y = transform.position.y;
             attackPosition.z = 0;
         }
-
+        attackPos.position = attackPosition;
         return attackPosition;
     }
 
@@ -126,7 +126,7 @@ public class Attack : MonoBehaviour {
             }
             else
             {
-                Debug.Log("Set current weapon to null");
+                //Debug.Log("Set current weapon to null");
                 currentWeapon = null;
             }
         }

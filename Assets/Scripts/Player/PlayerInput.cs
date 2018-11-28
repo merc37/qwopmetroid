@@ -40,6 +40,8 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] float originalMovesDown = 20;
     [SerializeField] float originalMovesUp = 20;
 
+    private bool multipleKeyPressSubtract;
+
     private void Start()
     {
         //restrictedRight = true;
@@ -73,20 +75,32 @@ public class PlayerInput : MonoBehaviour
         {
             HorizontalInputState.boolState = true;
             PlayerMovementRestrictor(restrictedLeft.boolState, restrictedRight.boolState, HorizontalInputValue, HorizontalInputState, canMoveInputX);
-            oldAixsValuesX = HorizontalInputValue.Value;
+            if (HorizontalInputValue.Variable.Value != 0)
+            {
+                multipleKeyPressSubtract = true;
+                oldAixsValuesX = HorizontalInputValue.Value;
+            }
+            else
+            {
+                //Debug.Log("Movement input totals out to 0");
+                if (multipleKeyPressSubtract == true)
+                {
+                    TotalMovesHandler(restrictedLeft.boolState, restrictedRight.boolState, oldAixsValuesX, totalMovesLeft, totalMovesRight, true);
+                }
+            }
         }
         else if (Input.GetButtonUp("Horizontal"))
         {
             //Debug.Log(oldAixsValuesX);
-            TotalMovesHandler(restrictedLeft.boolState, restrictedRight.boolState, oldAixsValuesX, totalMovesLeft, totalMovesRight);
+            TotalMovesHandler(restrictedLeft.boolState, restrictedRight.boolState, oldAixsValuesX, totalMovesLeft, totalMovesRight, false);
             RestrictionHandelr(restrictedLeft, restrictedRight, oldAixsValuesX, totalMovesLeft, totalMovesRight);
             HorizontalInputState.boolState = false;
-            oldAixsValuesX = 0;
+            //oldAixsValuesX = 0;
         }
         else
         {
             HorizontalInputState.boolState = false;
-            oldAixsValuesX = 0;
+            //oldAixsValuesX = 0;
         }
 
         #endregion
@@ -103,7 +117,7 @@ public class PlayerInput : MonoBehaviour
         }
         else if (Input.GetButtonUp("Vertical"))
         {
-            TotalMovesHandler(restrictedDown.boolState, restrictedUp.boolState, oldAixsValuesY, totalMovesDown, totalMovesUp);
+            TotalMovesHandler(restrictedDown.boolState, restrictedUp.boolState, oldAixsValuesY, totalMovesDown, totalMovesUp, false);
             RestrictionHandelr(restrictedDown, restrictedUp, oldAixsValuesY, totalMovesDown, totalMovesUp);
             VerticalInputState.boolState = false;
             oldAixsValuesY = 0;
@@ -157,20 +171,44 @@ public class PlayerInput : MonoBehaviour
 
     }
 
-    private void TotalMovesHandler(bool _restrictLessDir, bool _restrictGreaterDir, float directionAxis, FloatReference totalMovesLessDir, FloatReference totalMovesGreaterDir)
+    private void TotalMovesHandler(bool _restrictLessDir, bool _restrictGreaterDir, float directionAxis, FloatReference totalMovesLessDir, FloatReference totalMovesGreaterDir, bool multipleKey)
     {
-        if (directionAxis < 0)
+        //Debug.Log("Calculating total remaining moves..." + "Latest lifted Key is: " + directionAxis);
+        if (!multipleKey)
         {
-            if (_restrictLessDir == false)
+            if (directionAxis < 0)
             {
-                totalMovesLessDir.Variable.Value -= 1;
+                if (_restrictLessDir == false)
+                {
+                    totalMovesLessDir.Variable.Value -= 1;
+                }
+            }
+            else if (directionAxis > 0)
+            {
+                if (_restrictGreaterDir == false)
+                {
+                    totalMovesGreaterDir.Variable.Value -= 1;
+                }
             }
         }
-        else if (directionAxis > 0)
+        else
         {
-            if (_restrictGreaterDir == false)
+            //Debug.Log("Multiple Keys Detected");
+            if (oldAixsValuesX > 0)
             {
-                totalMovesGreaterDir.Variable.Value -= 1;
+                if (_restrictLessDir == false)
+                {
+                    multipleKeyPressSubtract = false;
+                    totalMovesLessDir.Variable.Value -= 1;
+                }
+            }
+            else
+            {
+                if (_restrictGreaterDir == false)
+                {
+                    multipleKeyPressSubtract = false;
+                    totalMovesGreaterDir.Variable.Value -= 1;
+                }
             }
         }
     }
