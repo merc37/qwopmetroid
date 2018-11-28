@@ -8,7 +8,7 @@ public class Attack : MonoBehaviour {
     public Weapon currentWeapon;
     public BoolVariable damagedEnemy;
 
-    private float weaponDmg;
+    public FloatReference currentDmg;
     private float timeBetweenAttack;
     private float startTimeBtwAttack;
     private ColliderType colType;
@@ -64,7 +64,7 @@ public class Attack : MonoBehaviour {
             {
                 if(col2d is BoxCollider2D)
                 {
-                    col2d.GetComponent<EnemyProperties>().DamageTaken(weaponDmg);
+                    col2d.GetComponent<EnemyProperties>().DamageTaken(currentDmg.Variable.Value);
                     damagedEnemy.boolState = true;
                 }
             }
@@ -80,7 +80,7 @@ public class Attack : MonoBehaviour {
             {
                 if(col2D is BoxCollider2D)
                 {
-                    col2D.GetComponent<EnemyProperties>().DamageTaken(weaponDmg);
+                    col2D.GetComponent<EnemyProperties>().DamageTaken(currentDmg.Variable.Value);
                     damagedEnemy.boolState = true;
                 }
             }
@@ -116,6 +116,7 @@ public class Attack : MonoBehaviour {
 
     private void SetCurrentWeapon()
     {
+        currentWeapon = null;
         for (int i = 0; i < playerEquippedItems.equippedItems.Count; i++)
         {
             if (playerEquippedItems.equippedItems[i].equipmentType == EquipmentType.Weapon1)
@@ -125,6 +126,7 @@ public class Attack : MonoBehaviour {
             }
             else
             {
+                Debug.Log("Set current weapon to null");
                 currentWeapon = null;
             }
         }
@@ -132,7 +134,7 @@ public class Attack : MonoBehaviour {
         if(currentWeapon != null)
         {
             startTimeBtwAttack = currentWeapon.timeBtwAttack.Value;
-            weaponDmg = currentWeapon.Damage.Value;
+            currentDmg.Variable.Value = currentWeapon.Damage.Value;
             colType = currentWeapon.ColliderType;
 
             boxAngle = currentWeapon.angleOfBox;
@@ -140,7 +142,7 @@ public class Attack : MonoBehaviour {
         else
         {
             startTimeBtwAttack = 0;
-            weaponDmg = 0;
+            currentDmg.Variable.Value = 0;
             colType = 0;
 
             boxAngle = 0;

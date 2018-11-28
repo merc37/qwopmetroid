@@ -43,6 +43,6 @@ public class EnemyProperties : MonoBehaviour {
         randomPickUpFall.fallSpeed = new Vector2(fallXVel, 5);
         randomJuicePickUpFall.fallSpeed = new Vector2(fallXVel + 1, 5);
 
-        Debug.Log(itemsToDrop[randomItemIndex].name);
+        //Debug.Log(itemsToDrop[randomItemIndex].name);
     }
 }

@@ -17,7 +17,7 @@ MonoBehaviour:
   itemDescription: Small Protector
   itemNumber: 6
   stackable: 0
-  DamageReduction: 2
+  itemDamageReduction: 0
   speedBonus: -0.5
   directionJuiceBonus: {x: 0, y: 0, z: 0, w: 0}
   damageReductionPercentage: 55

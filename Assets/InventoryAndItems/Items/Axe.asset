@@ -17,7 +17,7 @@ MonoBehaviour:
   itemDescription: Impactful Destructor
   itemNumber: 1
   stackable: 0
-  DamageReduction: 10
+  itemDamageReduction: 0
   speedBonus: 2
   directionJuiceBonus: {x: 0, y: 0, z: 0, w: 0}
   damageReductionPercentage: 0

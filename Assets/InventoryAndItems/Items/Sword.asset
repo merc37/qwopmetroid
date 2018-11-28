@@ -17,7 +17,7 @@ MonoBehaviour:
   itemDescription: Blades of Imagination
   itemNumber: 2
   stackable: 0
-  DamageReduction: 0
+  itemDamageReduction: 0
   speedBonus: 0
   directionJuiceBonus: {x: 0, y: 0, z: 0, w: 0}
   damageReductionPercentage: 0
