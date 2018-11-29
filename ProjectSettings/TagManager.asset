@@ -11,6 +11,7 @@ TagManager:
   - Walls
   - Enemy
   - Chest
+  - Room
   layers:
   - Default
   - TransparentFX

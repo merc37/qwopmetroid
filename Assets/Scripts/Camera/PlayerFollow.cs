@@ -11,28 +11,33 @@ public class PlayerFollow : MonoBehaviour {
     [SerializeField] FloatReference playerFallingSpeed;
     [SerializeField] BoolVariable playerIsGrounded;
 
+    public BoolVariable followPlayerLeft;
+    public BoolVariable followPlayerRight;
+    public BoolVariable followPlayerDown;
+    public BoolVariable followPlayerUp;
+
     private float oldPlayerY;
 
     private void FixedUpdate()
     {
-        FollowTarget(playerX, playerY);
+        FollowTarget(playerX, playerY, followPlayerLeft, followPlayerRight, followPlayerDown, followPlayerUp);
     }
 
-    private void FollowTarget(FloatReference targetX, FloatReference targetY)
+    private void FollowTarget(FloatReference targetX, FloatReference targetY, BoolVariable followLeft, BoolVariable followRight, BoolVariable followDown, BoolVariable followUp)
     {
-        if(targetX.Value <  transform.position.x - deadzoneBounds.bounds.extents.x || targetX.Value > transform.position.x + deadzoneBounds.bounds.extents.x)
+        if((followLeft.boolState == true && targetX.Value <  transform.position.x - deadzoneBounds.bounds.extents.x) || (followRight.boolState == true && targetX.Value > transform.position.x + deadzoneBounds.bounds.extents.x))
         {
             Vector3 moveVelocity = new Vector3(targetX.Value - transform.position.x, 0, 0);
             transform.Translate(moveVelocity * moveSpeedMultiplier * Time.fixedDeltaTime);
         }
 
-        if (targetY.Value > transform.position.y || targetY.Value < transform.position.y)
+        if (followUp.boolState == true && targetY.Value > transform.position.y + deadzoneBounds.bounds.extents.y)
         {
             Vector3 moveVelocity = new Vector3(0, targetY.Value - transform.position.y, 0);
             transform.Translate(moveVelocity * moveSpeedMultiplier * Time.fixedDeltaTime);
         }
 
-        if (targetY.Value < transform.position.y)
+        if (followDown.boolState == true && targetY.Value < transform.position.y)
         {
             if(playerFallingSpeed.Value == 0)
             {
