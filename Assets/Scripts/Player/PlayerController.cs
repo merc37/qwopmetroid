@@ -58,6 +58,12 @@ public class PlayerController : MonoBehaviour {
     public float checkForCeelingAtHeight;
     public LayerMask whatIsCelling;
     [Space]
+    [Header(header: "Player Wall Climb:")]
+    public LayerMask whatIsWall;
+    public float wallSlideSpeed;
+    public float wallLeapXSpeed;
+    public float wallJumpYSpeed;
+    [Space]
     [Header(header: "Temporary Here:")]
     public float knockBackX;
     public float knockBackY;
@@ -72,6 +78,8 @@ public class PlayerController : MonoBehaviour {
     protected Rigidbody2D rb2d;
 
     public BoolVariable facingRight;
+
+    private BoxCollider2D playerBoxCollider2d;
 
     private void OnValidate()
     {
@@ -94,6 +102,7 @@ public class PlayerController : MonoBehaviour {
     private void Awake ()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        playerBoxCollider2d = GetComponent<BoxCollider2D>();
     }
 
     private void Start()
@@ -131,6 +140,7 @@ public class PlayerController : MonoBehaviour {
         {
             MovementY(moveInputY.Value, speed, canJump, isGrounded);
         }
+        WallClimb();
     }
 
     protected void MovementX(float movementInputX, FloatReference speedToMoveX,  BoolVariable isGrounded)
@@ -192,6 +202,24 @@ public class PlayerController : MonoBehaviour {
             }
             isJumping = false;
             oldMoveInputY = 0;
+        }
+    }
+
+    private void WallClimb()
+    {
+        if (Physics2D.OverlapBox(transform.position, playerBoxCollider2d.bounds.size, 0, whatIsWall))
+        {
+            if (isGrounded.boolState == false && rb2d.velocity.y < 0)
+            {
+                if (Input.GetButton("Vertical") && Input.GetButton("Horizontal"))
+                {
+                    rb2d.velocity = new Vector2(wallLeapXSpeed * moveInputX.Variable.Value, wallJumpYSpeed);
+                }
+                else if (Input.GetButton("Horizontal"))
+                {
+                    rb2d.velocity = new Vector2(0, wallSlideSpeed);
+                }
+            }
         }
     }
 

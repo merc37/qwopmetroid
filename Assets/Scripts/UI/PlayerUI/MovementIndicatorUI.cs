@@ -12,20 +12,17 @@ public class MovementIndicatorUI : MonoBehaviour {
     public FloatReference[] currentMoves;
     [SerializeField] float[] totalCurrentMoves;
 
-    private void OnValidate()
-    {
-        if(movementIndicatorsParent != null)
-        {
-            movementIndicators = movementIndicatorsParent.GetComponentsInChildren<Image>();
-        }
-    }
+    //private void OnValidate()
+    //{
+    //    if(movementIndicatorsParent != null)
+    //    {
+    //        movementIndicators = movementIndicatorsParent.GetComponentsInChildren<Image>();
+    //    }
+    //}
 
     // Use this for initialization
     void Start () {
-        for (int i = 0; i < totalCurrentMoves.Length; i++)
-        {
-            totalCurrentMoves[i] = currentMoves[i].Value;
-        }
+
     }
 	
 	// Update is called once per frame

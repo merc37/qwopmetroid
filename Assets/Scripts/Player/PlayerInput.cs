@@ -50,6 +50,12 @@ public class PlayerInput : MonoBehaviour
         canMoveInputX.boolState = true;
         canMoveInputY.boolState = true;
         jumpInputState.boolState = false;
+
+        totalMovesDown.Variable.Value = originalMovesDown;
+        totalMovesUp.Variable.Value = originalMovesUp;
+        totalMovesLeft.Variable.Value = originalMovesLeft;
+        totalMovesRight.Variable.Value = originalMovesRight;
+
     }
 
     private void FixedUpdate()

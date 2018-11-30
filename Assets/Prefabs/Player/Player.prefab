@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 114554702020485316}
   - component: {fileID: 114401839891554336}
   - component: {fileID: 114369943250347336}
+  - component: {fileID: 114023353818965502}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -62,6 +63,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4516774321866108}
+  - component: {fileID: 212317263198914854}
   m_Layer: 9
   m_Name: AttackPosition
   m_TagString: Untagged
@@ -89,7 +91,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1985920856587690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4608211745164670}
@@ -102,7 +104,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1446402791536596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.9, y: 0.9, z: 0}
+  m_LocalPosition: {x: -12.19, y: 6.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4291032107302164}
@@ -252,6 +254,33 @@ MonoBehaviour:
   originalMovesRight: 20
   originalMovesDown: 20
   originalMovesUp: 20
+--- !u!114 &114023353818965502
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1446402791536596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9196639302f3034db4ff2a326516c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraBoundXMin:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 611581aef8996824c9a38b62b397ea86, type: 2}
+  cameraBoundYMin:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 925c0d48dfa314f4ea07cac33a1d3dc9, type: 2}
+  cameraBoundXMax:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: a0d091f6b9b39fe4fbec6d3225ede086, type: 2}
+  cameraBoundYMax:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 190e42257d39bd2468d0154da9700975, type: 2}
 --- !u!114 &114152895237979400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -463,6 +492,12 @@ MonoBehaviour:
   whatIsCelling:
     serializedVersion: 2
     m_Bits: 16384
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 8192
+  wallSlideSpeed: -0.8
+  wallLeapXSpeed: 18
+  wallJumpYSpeed: 12
   knockBackX: 10
   knockBackY: 20
   knockBackTime: 0.2
@@ -513,3 +548,49 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2861f241466e8e44ea75552eda2e6391, type: 2}
   - {fileID: 11400000, guid: be4fc842b7defa44caa9197ea57bd460, type: 2}
   enemyColliders: []
+--- !u!212 &212317263198914854
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1985920856587690}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: ad63283c5d53df9498d13d55922ccb70, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.64, y: 0.64}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0

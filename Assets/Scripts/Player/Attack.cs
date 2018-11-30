@@ -35,6 +35,9 @@ public class Attack : MonoBehaviour {
 	void Update () {
 
         SetCurrentWeapon();
+        //ONLY FOR DEBUGGING REMOVE OTHER WISE        //ONLY FOR DEBUGGING REMOVE OTHER WISE        //ONLY FOR DEBUGGING REMOVE OTHER WISE
+        attackPos.position = AttackPosition(playerAxisInputs, playerAxisBools); // Draws THE ATACK POSITION;
+        //ONLY FOR DEBUGGING REMOVE OTHER WISE        //ONLY FOR DEBUGGING REMOVE OTHER WISE        //ONLY FOR DEBUGGING REMOVE OTHER WISE
 
         if (timeBetweenAttack <= 0)
         {
@@ -109,7 +112,6 @@ public class Attack : MonoBehaviour {
             attackPosition.y = transform.position.y;
             attackPosition.z = 0;
         }
-        attackPos.position = attackPosition;
         return attackPosition;
     }
 
