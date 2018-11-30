@@ -104,7 +104,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1446402791536596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.19, y: 6.22, z: 0}
+  m_LocalPosition: {x: -16.28, y: 6.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4291032107302164}
@@ -350,19 +350,18 @@ MonoBehaviour:
     ConstantValue: 10
     Variable: {fileID: 11400000, guid: f11512b539f472c46916bdae2e68faf8, type: 2}
   numberOfHeartsVisible: 10
-  heartsParent: {fileID: 224305158445168656, guid: f431828fba59eb14aa4ad24cd37b77ac,
-    type: 2}
+  heartsParent: {fileID: 0}
   hearts:
-  - {fileID: 114754473789849226, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114243100985036570, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114198151378119362, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114954740836140746, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114708827464875016, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114076267984613358, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114797922843314974, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114774851217923982, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114171345161368938, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
-  - {fileID: 114571374834232826, guid: f431828fba59eb14aa4ad24cd37b77ac, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   fullHeart: {fileID: 21300000, guid: a732b4655ec300947ba5f1487df538ac, type: 3}
   emptyHeart: {fileID: 21300000, guid: 121b4b634bcead148b5f6f7849c27d1b, type: 3}
 --- !u!114 &114554702020485316
@@ -492,11 +491,12 @@ MonoBehaviour:
   whatIsCelling:
     serializedVersion: 2
     m_Bits: 16384
+  wallClimbing: 0
   whatIsWall:
     serializedVersion: 2
     m_Bits: 8192
-  wallSlideSpeed: -0.8
-  wallLeapXSpeed: 18
+  wallSlideSpeed: -0.5
+  wallLeapXSpeed: 25
   wallJumpYSpeed: 12
   knockBackX: 10
   knockBackY: 20

@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour {
     public LayerMask whatIsCelling;
     [Space]
     [Header(header: "Player Wall Climb:")]
+    public bool wallClimbing;
     public LayerMask whatIsWall;
     public float wallSlideSpeed;
     public float wallLeapXSpeed;
@@ -165,7 +166,10 @@ public class PlayerController : MonoBehaviour {
         {
             FastFall();
             rb2d.gravityScale = 1;
-            Jump();
+            if(wallClimbing  == false)
+            {
+                Jump();
+            }
         }
         if (Physics2D.OverlapCircle((Vector2)transform.position + Vector2.up * checkForCeelingAtHeight, checkRadius, whatIsCelling) && rb2d.velocity.y >  0)
         {
@@ -207,17 +211,20 @@ public class PlayerController : MonoBehaviour {
 
     private void WallClimb()
     {
-        if (Physics2D.OverlapBox(transform.position, playerBoxCollider2d.bounds.size, 0, whatIsWall))
+        Vector3 checkPosition = new Vector3(transform.position.x + (moveInputX.Variable.Value * 0.1f), transform.position.y, transform.position.z);
+        wallClimbing = Physics2D.OverlapBox(checkPosition, playerBoxCollider2d.bounds.size, 0, whatIsWall);
+        if (wallClimbing)
         {
             if (isGrounded.boolState == false && rb2d.velocity.y < 0)
             {
-                if (Input.GetButton("Vertical") && Input.GetButton("Horizontal"))
+                Debug.Log("In here");
+                if (Input.GetButtonDown("Vertical") && jumpRestricted.boolState == false)
                 {
-                    rb2d.velocity = new Vector2(wallLeapXSpeed * moveInputX.Variable.Value, wallJumpYSpeed);
+                    rb2d.velocity = new Vector2(wallLeapXSpeed * -moveInputX.Variable.Value, wallJumpYSpeed);
                 }
                 else if (Input.GetButton("Horizontal"))
                 {
-                    rb2d.velocity = new Vector2(0, wallSlideSpeed);
+                    rb2d.velocity = new Vector2(rb2d.velocity.x, wallSlideSpeed);
                 }
             }
         }
@@ -339,6 +346,8 @@ public class PlayerController : MonoBehaviour {
     private void OnDrawGizmosSelected()
     {
         //Gizmos.DrawWireCube(transform.position, transform.lossyScale * 2);
-        Gizmos.DrawWireSphere((Vector2)transform.position + Vector2.up * checkForCeelingAtHeight, checkRadius);
+        //Gizmos.DrawWireSphere((Vector2)transform.position + Vector2.up * checkForCeelingAtHeight, checkRadius);
+        Gizmos.DrawCube(new Vector3(transform.position.x + moveInputX.Variable.Value, transform.position.y, transform.position.z),new Vector2(1,1));
+
     }
 }

@@ -40277,11 +40277,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4608211745164670, guid: 86c51e4b945b4034995bddf4f65a68dc, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -12.19
+      value: -16.28
       objectReference: {fileID: 0}
     - target: {fileID: 4608211745164670, guid: 86c51e4b945b4034995bddf4f65a68dc, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6.22
+      value: 6.35
       objectReference: {fileID: 0}
     - target: {fileID: 4608211745164670, guid: 86c51e4b945b4034995bddf4f65a68dc, type: 2}
       propertyPath: m_LocalPosition.z
@@ -40362,11 +40362,6 @@ Prefab:
       propertyPath: hearts.Array.data[9]
       value: 
       objectReference: {fileID: 296824447}
-    - target: {fileID: 114152895237979400, guid: 86c51e4b945b4034995bddf4f65a68dc,
-        type: 2}
-      propertyPath: Camera
-      value: 
-      objectReference: {fileID: 519420028}
     - target: {fileID: 114559702601971094, guid: 86c51e4b945b4034995bddf4f65a68dc,
         type: 2}
       propertyPath: inventoryUI
@@ -40477,6 +40472,11 @@ Prefab:
       propertyPath: inventorySlots.Array.data[19]
       value: 
       objectReference: {fileID: 1614036526}
+    - target: {fileID: 114152895237979400, guid: 86c51e4b945b4034995bddf4f65a68dc,
+        type: 2}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 519420028}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86c51e4b945b4034995bddf4f65a68dc, type: 2}
   m_IsPrefabAsset: 0
@@ -41119,7 +41119,7 @@ Prefab:
     - target: {fileID: 114979228112835026, guid: 00a5ef8135a019842b68c9f25c1c4f8c,
         type: 2}
       propertyPath: m_text
-      value: 497
+      value: 505
       objectReference: {fileID: 0}
     - target: {fileID: 114979228112835026, guid: 00a5ef8135a019842b68c9f25c1c4f8c,
         type: 2}
