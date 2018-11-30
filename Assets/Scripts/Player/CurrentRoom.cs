@@ -18,7 +18,7 @@ public class CurrentRoom : MonoBehaviour {
     {
         if (collider.CompareTag("Room"))
         {
-            Debug.Log(collider.gameObject);
+            //Debug.Log(collider.gameObject);
             cameraBoundXMin.Variable.Value = collider.gameObject.transform.position.x - collider.bounds.extents.x;
             cameraBoundXMax.Variable.Value = collider.gameObject.transform.position.x + collider.bounds.extents.x;
             cameraBoundYMin.Variable.Value = collider.gameObject.transform.position.y - collider.bounds.extents.y;

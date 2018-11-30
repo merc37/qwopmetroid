@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerFollow : MonoBehaviour {
-
+    
     [SerializeField] Collider2D deadzoneBounds;
     [SerializeField] FloatReference playerX;
     [SerializeField] FloatReference playerY;
@@ -41,8 +41,9 @@ public class PlayerFollow : MonoBehaviour {
         {
             if(playerFallingSpeed.Value == 0)
             {
-                Vector3 moveVelocity = new Vector3(0, targetY.Value - transform.position.y, 0);
-                transform.Translate(moveVelocity * moveSpeedMultiplier * Time.fixedDeltaTime);
+                //Vector3 moveVelocity = new Vector3(0, targetY.Value - transform.position.y, 0);
+                //transform.Translate(moveVelocity * moveSpeedMultiplier * Time.fixedDeltaTime);
+                transform.position = new Vector3(transform.position.x, targetY.Value, transform.position.z);
             }
             else
             {
