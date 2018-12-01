@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class SpecialMoves : MonoBehaviour {
 
+    public BoolVariable playerDash;
+    public BoolVariable playerDoubleJump;
+    public BoolVariable playerWallClimb;
+
+    public FloatReference extraJumps;
+
     public GameObject player;
 
     private Dash dashAbility;
@@ -27,7 +33,7 @@ public class SpecialMoves : MonoBehaviour {
 
     protected void ChecktToActivate()
     {
-        if (Input.GetButton("Dash"))
+        if (playerDash.boolState == true && Input.GetButton("Dash"))
         {
             dashAbility.enabled = true;
         }
@@ -35,7 +41,22 @@ public class SpecialMoves : MonoBehaviour {
         {
             dashAbility.enabled = false;
         }
-
+        if (playerDoubleJump.boolState == true)
+        {
+            extraJumps.Variable.Value = 1;
+        }
+        else
+        {
+            extraJumps.Variable.Value = 0;
+        }
+        if(playerWallClimb.boolState == true)
+        {
+            Debug.Log("Can wall Climb");
+        }
+        else
+        {
+            Debug.Log("Cannot wall Climb");
+        }
         /*if (canDoubleJump)
           { 
               

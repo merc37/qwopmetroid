@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour {
     public LayerMask whatIsCelling;
     [Space]
     [Header(header: "Player Wall Climb:")]
+    public BoolVariable playerCanClimb;
     public bool wallClimbing;
     public LayerMask whatIsWall;
     public float wallSlideSpeed;
@@ -141,12 +142,12 @@ public class PlayerController : MonoBehaviour {
         {
             MovementY(moveInputY.Value, speed, canJump, isGrounded);
         }
-        WallClimb();
+        WallClimb(playerCanClimb);
     }
 
     protected void MovementX(float movementInputX, FloatReference speedToMoveX,  BoolVariable isGrounded)
     {
-        isGrounded.boolState = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
+        isGrounded.boolState = Physics2D.OverlapCircle(transform.position, checkRadius, whatIsGround);
         if(isGrounded.boolState == true)
         {
             wallClimbing = false;
@@ -213,32 +214,39 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void WallClimb()
+    private void WallClimb(BoolVariable playerCanClimb)
     {
-        Vector3 checkPosition = new Vector3(transform.position.x + (moveInputX.Variable.Value * 0.1f), transform.position.y, transform.position.z);
-        if (Physics2D.OverlapBox(checkPosition, playerBoxCollider2d.bounds.size, 0, whatIsWall))
+        if(playerCanClimb.boolState == true)
         {
-            if (isGrounded.boolState == false && rb2d.velocity.y < 0)
+            Vector3 checkPosition = new Vector3(transform.position.x + (moveInputX.Variable.Value * 0.1f), transform.position.y, transform.position.z);
+            if (Physics2D.OverlapBox(checkPosition, playerBoxCollider2d.bounds.size, 0, whatIsWall))
             {
-                if (Input.GetButtonDown("Vertical") && Input.GetButton("Horizontal") && jumpRestricted.boolState == false)
+                if (isGrounded.boolState == false && rb2d.velocity.y < 0)
                 {
-                    rb2d.velocity = new Vector2(wallLeapXSpeed * -moveInputX.Variable.Value, wallJumpYSpeed);
-                    wallClimbing = true;
-                }
-                else if (Input.GetButton("Horizontal"))
-                {
-                    rb2d.velocity = new Vector2(rb2d.velocity.x, wallSlideSpeed);
-                    wallClimbing = true;
+                    if (Input.GetButtonDown("Vertical") && Input.GetButton("Horizontal") && jumpRestricted.boolState == false)
+                    {
+                        rb2d.velocity = new Vector2(wallLeapXSpeed * -moveInputX.Variable.Value, wallJumpYSpeed);
+                        wallClimbing = true;
+                    }
+                    else if (Input.GetButton("Horizontal"))
+                    {
+                        rb2d.velocity = new Vector2(rb2d.velocity.x, wallSlideSpeed);
+                        wallClimbing = true;
+                    }
+                    else
+                    {
+                        wallClimbing = false;
+                    }
                 }
                 else
                 {
                     wallClimbing = false;
                 }
             }
-            else
-            {
-                wallClimbing = false;
-            }
+        }
+        else
+        {
+            Debug.Log("Cannot wall Climb");
         }
     }
 
@@ -346,7 +354,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (fullReset)
         {
-            remainingJumps = (int)extraJumps.Value;
+            remainingJumps = (int)extraJumps.Variable.Value + 1;
             isJumping = false;
         }
         else

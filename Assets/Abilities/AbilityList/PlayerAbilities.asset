@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6018a8beaaf7984da4c5d64280665fa, type: 3}
   m_Name: PlayerAbilities
   m_EditorClassIdentifier: 
-  playerDash: {fileID: 0}
-  playerDoubleJump: {fileID: 0}
-  playerWallClimb: {fileID: 0}
+  playerDash: {fileID: 11400000, guid: 8604b2463e60798438ecea82adb50fee, type: 2}
+  playerDoubleJump: {fileID: 11400000, guid: d1298c14cd59e3e418df345b23e97390, type: 2}
+  playerWallClimb: {fileID: 11400000, guid: 5e3f239b312baa445bc0e4362e3d600c, type: 2}
   characterAbilities: []
