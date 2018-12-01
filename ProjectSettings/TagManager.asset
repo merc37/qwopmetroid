@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - Chest
   - Room
+  - Ability
   layers:
   - Default
   - TransparentFX

@@ -4,40 +4,53 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour {
 
-    [SerializeField] BoolVariable pickedUp;
+    [SerializeField] BoolVariable pickedUpItem;
+    [SerializeField] BoolVariable abilityPickedUp;
     [SerializeField] CharacterItemsList playerInventory;
+    [SerializeField] CharacterAbilitiesList playerAbilitiesList;
 
     private PickUpItem pickUpItem;
+    private AbilityPickUp abilityPickUp;
 
     private void Start()
     {
-        pickedUp.boolState = false;
+        pickedUpItem.boolState = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("Checkingg Trigger" + collision.name);
-        pickedUp.boolState = collision.CompareTag("PickUp");
+        pickedUpItem.boolState = collision.CompareTag("PickUp");
 
-        if (pickedUp.boolState == true)
+        if (pickedUpItem.boolState == true)
         {
             pickUpItem = collision.GetComponent<PickUpItem>();
 
             if(playerInventory.PickUpItemHandler(pickUpItem.item, false) && pickUpItem.destroyItem == false)
             {
-                pickedUp.boolState = false;
+                pickedUpItem.boolState = false;
                 pickUpItem.destroyItem = true;
             }
             else
             {
-                pickedUp.boolState = false;
+                pickedUpItem.boolState = false;
                 pickUpItem.destroyItem = false;
             }
         }
+        else if (collision.CompareTag("Ability"))
+        {
+            abilityPickUp = collision.GetComponent<AbilityPickUp>();
+
+            if (playerAbilitiesList.AddAndActivateAbility(abilityPickUp.abilityItem))
+            {
+                Debug.Log("Ability Added" + playerAbilitiesList.characterAbilities[playerAbilitiesList.characterAbilities.Count - 1].name);
+            }
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        pickedUp.boolState = false;
+        pickedUpItem.boolState = false;
     }
 }

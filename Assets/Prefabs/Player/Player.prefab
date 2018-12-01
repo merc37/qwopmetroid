@@ -104,7 +104,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1446402791536596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.28, y: 6.35, z: 0}
+  m_LocalPosition: {x: -10.4, y: -6.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4291032107302164}
@@ -375,8 +375,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86121570d13fc0d4f91d5a5e276f3bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickedUp: {fileID: 11400000, guid: da0abe532e73cfc4abcf455e4ce85e0e, type: 2}
+  pickedUpItem: {fileID: 11400000, guid: 49f8f191d644eb245bd59f6be25c1eae, type: 2}
+  abilityPickedUp: {fileID: 11400000, guid: 49f8f191d644eb245bd59f6be25c1eae, type: 2}
   playerInventory: {fileID: 11400000, guid: b02b70f283c373f499fab24d324d2ecc, type: 2}
+  playerAbilitiesList: {fileID: 11400000, guid: 8fb15fdefb263cb49b2be88d8d535574,
+    type: 2}
 --- !u!114 &114559702601971094
 MonoBehaviour:
   m_ObjectHideFlags: 1

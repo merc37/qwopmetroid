@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [CreateAssetMenu(fileName = "New Inventory List", menuName = "Scriptable Objects/Lists/Inventory List", order = 2)]
 public class CharacterItemsList : ScriptableObject {
 

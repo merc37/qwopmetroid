@@ -8,8 +8,6 @@ public enum EquipmentType
     Weapon2,
     Accessory1,
     Accessory2,
-    Ability1,
-    Ability2
 }
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Scriptable Objects/Create Item/Equippable Item")]
