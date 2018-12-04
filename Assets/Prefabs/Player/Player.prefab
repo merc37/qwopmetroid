@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 114401839891554336}
   - component: {fileID: 114369943250347336}
   - component: {fileID: 114023353818965502}
+  - component: {fileID: 114948049013813082}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -104,7 +105,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1446402791536596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.4, y: -6.48, z: 0}
+  m_LocalPosition: {x: 4.42, y: 3.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4291032107302164}
@@ -387,6 +388,9 @@ MonoBehaviour:
   playerInventory: {fileID: 11400000, guid: b02b70f283c373f499fab24d324d2ecc, type: 2}
   playerAbilitiesList: {fileID: 11400000, guid: 8fb15fdefb263cb49b2be88d8d535574,
     type: 2}
+  AbilityPanel: {fileID: 0}
+  abilityName: {fileID: 0}
+  abilityDescription: {fileID: 0}
 --- !u!114 &114559702601971094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -433,6 +437,34 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 542ec7829b67b874f8ddd996c62adbb6, type: 2}
+--- !u!114 &114948049013813082
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1446402791536596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b75956d5d1818ed409b3d50e87bbe91c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerX:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 0018c16e33714914ea8174ee34713c85, type: 2}
+  playerY:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 24a726c0e488e2b49a07e3cf6f1c88e2, type: 2}
+  playerMoney:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 22fe771f1b75f9348bbca5c147cc96fb, type: 2}
+  playerHealth:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: f11512b539f472c46916bdae2e68faf8, type: 2}
+  playerItems: {fileID: 11400000, guid: b02b70f283c373f499fab24d324d2ecc, type: 2}
 --- !u!114 &114967919269289588
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -501,7 +533,7 @@ MonoBehaviour:
   whatIsCelling:
     serializedVersion: 2
     m_Bits: 16384
-  playerCanClimb: {fileID: 0}
+  playerCanClimb: {fileID: 11400000, guid: 5e3f239b312baa445bc0e4362e3d600c, type: 2}
   wallClimbing: 0
   whatIsWall:
     serializedVersion: 2

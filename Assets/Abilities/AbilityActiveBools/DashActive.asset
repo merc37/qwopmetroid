@@ -11,4 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccc2fb4b0847e964ca0db11c37ecb442, type: 3}
   m_Name: DashActive
   m_EditorClassIdentifier: 
-  boolState: 0
+  boolState: 1

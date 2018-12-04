@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PickUp : MonoBehaviour {
 
@@ -8,6 +10,10 @@ public class PickUp : MonoBehaviour {
     [SerializeField] BoolVariable abilityPickedUp;
     [SerializeField] CharacterItemsList playerInventory;
     [SerializeField] CharacterAbilitiesList playerAbilitiesList;
+
+    public GameObject AbilityPanel;
+    public TextMeshProUGUI abilityName;
+    public TextMeshProUGUI abilityDescription;
 
     private PickUpItem pickUpItem;
     private AbilityPickUp abilityPickUp;
@@ -43,7 +49,11 @@ public class PickUp : MonoBehaviour {
 
             if (playerAbilitiesList.AddAndActivateAbility(abilityPickUp.abilityItem))
             {
-                Debug.Log("Ability Added" + playerAbilitiesList.characterAbilities[playerAbilitiesList.characterAbilities.Count - 1].name);
+
+                abilityName.SetText("{_" + abilityPickUp.abilityItem.abilityType + "_}");
+                abilityDescription.SetText(abilityPickUp.abilityItem.abilityDescription);
+                AbilityPanel.SetActive(true);
+                Time.timeScale = 0;
             }
         }
 
