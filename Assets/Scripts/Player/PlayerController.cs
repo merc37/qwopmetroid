@@ -246,7 +246,7 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
-            Debug.Log("Cannot wall Climb");
+            //Debug.Log("Cannot wall Climb");
         }
     }
 

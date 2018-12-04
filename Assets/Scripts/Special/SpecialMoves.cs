@@ -55,7 +55,7 @@ public class SpecialMoves : MonoBehaviour {
         }
         else
         {
-            Debug.Log("Cannot wall Climb");
+            //Debug.Log("Cannot wall Climb");
         }
         /*if (canDoubleJump)
           { 

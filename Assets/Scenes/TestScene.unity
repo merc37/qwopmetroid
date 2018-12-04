@@ -6190,6 +6190,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114979228112835026, guid: 00a5ef8135a019842b68c9f25c1c4f8c,
+        type: 2}
+      propertyPath: m_text
+      value: 460
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00a5ef8135a019842b68c9f25c1c4f8c, type: 2}
   m_IsPrefabAsset: 0
@@ -6728,6 +6733,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75956d5d1818ed409b3d50e87bbe91c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerX:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 0018c16e33714914ea8174ee34713c85, type: 2}
+  playerY:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 24a726c0e488e2b49a07e3cf6f1c88e2, type: 2}
+  playerMoney:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 22fe771f1b75f9348bbca5c147cc96fb, type: 2}
+  playerHealth:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: f11512b539f472c46916bdae2e68faf8, type: 2}
+  playerItems: {fileID: 11400000, guid: b02b70f283c373f499fab24d324d2ecc, type: 2}
 --- !u!4 &507883981
 Transform:
   m_ObjectHideFlags: 0
@@ -40986,11 +41008,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4608211745164670, guid: 86c51e4b945b4034995bddf4f65a68dc, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.28
+      value: 4.42
       objectReference: {fileID: 0}
     - target: {fileID: 4608211745164670, guid: 86c51e4b945b4034995bddf4f65a68dc, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.11
+      value: 3.19
       objectReference: {fileID: 0}
     - target: {fileID: 4608211745164670, guid: 86c51e4b945b4034995bddf4f65a68dc, type: 2}
       propertyPath: m_LocalPosition.z

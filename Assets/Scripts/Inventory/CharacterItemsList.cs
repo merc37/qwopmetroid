@@ -13,6 +13,34 @@ public class CharacterItemsList : ScriptableObject {
     public List<Item> itemsList = new List<Item>();
     public Vector2[] itemAndStackNumber = new Vector2[characterInventoryLimit];
 
+    public AllItems itemsRef;
+    public Vector2[] loadedItemNumbers = new Vector2[characterInventoryLimit];
+
+    public void LoadingItems()
+    {
+        Item[] itemsToLoad = new Item[loadedItemNumbers.Length];
+        for (int i = 0; i < loadedItemNumbers.Length; i++)
+        {
+            itemsToLoad[i] = itemsRef.ItemWith((int)loadedItemNumbers[i].x);
+        }
+
+        itemsList.Clear();
+        for (int i = 0; i < itemsToLoad.Length; i++)
+        {
+            if(itemsToLoad[i] != null)
+            {
+                itemsList.Add(itemsToLoad[i]);
+            }
+        }
+
+        for (int i = 0; i < loadedItemNumbers.Length; i++)
+        {
+            itemAndStackNumber[i].x = loadedItemNumbers[i].x;
+            itemAndStackNumber[i].y = loadedItemNumbers[i].y;
+        }
+
+    }
+
     public bool PickUpItemHandler(Item item, bool remove)
     {
         if (item.stackable == true && ContainsItemInStack(item))
