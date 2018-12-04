@@ -15,4 +15,5 @@ public class AbilityItem : ScriptableObject {
 
     public AbilityType abilityType;
     public Sprite abilityIcon;
+    public string abilityDescription;
 }
