@@ -11,7 +11,7 @@ public class CharacterItemsList : ScriptableObject {
     public const int characterInventoryLimit = 20;
 
     public List<Item> itemsList = new List<Item>();
-    [SerializeField] Vector2[] itemAndStackNumber = new Vector2[characterInventoryLimit];
+    public Vector2[] itemAndStackNumber = new Vector2[characterInventoryLimit];
 
     public bool PickUpItemHandler(Item item, bool remove)
     {
