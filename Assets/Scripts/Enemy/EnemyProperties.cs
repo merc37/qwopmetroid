@@ -34,12 +34,13 @@ public class EnemyProperties : MonoBehaviour {
     private void DropItem()
     {
         int randomItemIndex = Random.Range(0, itemsToDrop.Length - 1);
-        GameObject randomItem = Instantiate(itemsToDrop[randomItemIndex], dropTransform.position, Quaternion.identity);
+        Vector3 dropPosition = new Vector3(dropTransform.position.x + Random.Range(-0.5f , 0.5f), dropTransform.position.y + Random.Range(-0.5f, 0.5f), dropTransform.position.z);
+        GameObject randomItem = Instantiate(itemsToDrop[randomItemIndex], dropPosition, Quaternion.identity);
         GameObject directionJuice = Instantiate(directionJuiceDrop, dropTransform.position, Quaternion.identity);
 
         PickUpFall randomPickUpFall = randomItem.GetComponent<PickUpFall>();
         PickUpFall randomJuicePickUpFall = directionJuice.GetComponent<PickUpFall>();
-        float fallXVel = Random.Range(-2, 3);
+        float fallXVel = Random.Range(-6, 8);
         randomPickUpFall.fallSpeed = new Vector2(fallXVel, 5);
         randomJuicePickUpFall.fallSpeed = new Vector2(fallXVel + 1, 5);
 

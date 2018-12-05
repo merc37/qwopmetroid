@@ -268,7 +268,7 @@ public class PlayerController : MonoBehaviour {
 
     private void BounceBack()
     {
-        if (damagedEnemy.boolState == true && moveInputY.Value == -1)
+        if (damagedEnemy.boolState == true && moveInputY.Value == -1 && playerAttacked.boolState == true)
         {
             //Debug.Log("In HEre in BOUNCE BACK");
             rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Abs(downSlashUpVelocity));

@@ -6132,6 +6132,11 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114979228112835026, guid: 00a5ef8135a019842b68c9f25c1c4f8c,
+        type: 2}
+      propertyPath: m_text
+      value: 460
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00a5ef8135a019842b68c9f25c1c4f8c, type: 2}
   m_IsPrefabAsset: 0
@@ -6678,6 +6683,22 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 24a726c0e488e2b49a07e3cf6f1c88e2, type: 2}
+  leftMovement:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  rightMovement:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  downMovement:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  upMovement:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
   playerMoney:
     UseConstant: 0
     ConstantValue: 0
@@ -41177,6 +41198,11 @@ Prefab:
       propertyPath: inventorySlots.Array.data[19]
       value: 
       objectReference: {fileID: 1614036526}
+    - target: {fileID: 114967919269289588, guid: 86c51e4b945b4034995bddf4f65a68dc,
+        type: 2}
+      propertyPath: knockBackY
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86c51e4b945b4034995bddf4f65a68dc, type: 2}
   m_IsPrefabAsset: 0
