@@ -6112,12 +6112,12 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114567402987732062, guid: 00a5ef8135a019842b68c9f25c1c4f8c,
+    - target: {fileID: 114720690514901428, guid: 00a5ef8135a019842b68c9f25c1c4f8c,
         type: 2}
       propertyPath: buttonObjectPool
       value: 
       objectReference: {fileID: 1592210682}
-    - target: {fileID: 114720690514901428, guid: 00a5ef8135a019842b68c9f25c1c4f8c,
+    - target: {fileID: 114567402987732062, guid: 00a5ef8135a019842b68c9f25c1c4f8c,
         type: 2}
       propertyPath: buttonObjectPool
       value: 
@@ -6132,10 +6132,34 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114921131794016500, guid: 00a5ef8135a019842b68c9f25c1c4f8c,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921131794016500, guid: 00a5ef8135a019842b68c9f25c1c4f8c,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114962267178420174, guid: 00a5ef8135a019842b68c9f25c1c4f8c,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114962267178420174, guid: 00a5ef8135a019842b68c9f25c1c4f8c,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061938691381732, guid: 00a5ef8135a019842b68c9f25c1c4f8c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114979228112835026, guid: 00a5ef8135a019842b68c9f25c1c4f8c,
         type: 2}
-      propertyPath: m_text
-      value: 460
+      propertyPath: m_inputSource
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00a5ef8135a019842b68c9f25c1c4f8c, type: 2}
@@ -41202,6 +41226,11 @@ Prefab:
         type: 2}
       propertyPath: knockBackY
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114967919269289588, guid: 86c51e4b945b4034995bddf4f65a68dc,
+        type: 2}
+      propertyPath: checkRadius
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86c51e4b945b4034995bddf4f65a68dc, type: 2}

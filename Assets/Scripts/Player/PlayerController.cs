@@ -147,7 +147,9 @@ public class PlayerController : MonoBehaviour {
 
     protected void MovementX(float movementInputX, FloatReference speedToMoveX,  BoolVariable isGrounded)
     {
-        isGrounded.boolState = Physics2D.OverlapCircle(transform.position, checkRadius, whatIsGround);
+        //isGrounded.boolState = Physics2D.OverlapCircle((Vector2)transform.position/* + Vector2.down * 1/2*/, checkRadius, whatIsGround);
+        isGrounded.boolState = Physics2D.OverlapBox((Vector2)transform.position, new Vector2(playerBoxCollider2d.bounds.size.x * 0.9f, playerBoxCollider2d.bounds.size.y + 0.5f), 0, whatIsGround);
+        Debug.Log(isGrounded.boolState);
         if(isGrounded.boolState == true)
         {
             wallClimbing = false;
@@ -191,20 +193,20 @@ public class PlayerController : MonoBehaviour {
         }
         if (((Input.GetButtonDown("Vertical") && Input.GetAxisRaw("Vertical") > 0) && remainingJumps > 0) && jumpRestricted.boolState == false)
         {
-            //Debug.Log("Is Jumping");
+            Debug.Log("Is Jumping");
             //Debug.Log("moveInputY was Greater than 0");
             //Debug.Log("Doing this from remainingExtrajumps");
             rb2d.velocity = new Vector2(rb2d.velocity.x, maxJumpSpeed);
             isJumping = true;
-            remainingJumps--;
             oldMoveInputY = moveInputY.Value;
             //Debug.Log(remainingJumps);
         }
 
-        if (Input.GetButtonUp("Vertical") && Input.GetAxisRaw("Vertical") >= 0)
+        if (Input.GetButtonUp("Vertical") && oldMoveInputY > 0)
         {
             //Debug.Log("oldMoveInputY was Greater than 0");
             //Debug.Log("Doing this from jump button up");
+            remainingJumps--;
             if (rb2d.velocity.y > minJumpSpeed)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, minJumpSpeed);
@@ -367,7 +369,8 @@ public class PlayerController : MonoBehaviour {
     {
         //Gizmos.DrawWireCube(transform.position, transform.lossyScale * 2);
         //Gizmos.DrawWireSphere((Vector2)transform.position + Vector2.up * checkForCeelingAtHeight, checkRadius);
-        Gizmos.DrawCube(new Vector3(transform.position.x + moveInputX.Variable.Value, transform.position.y, transform.position.z),new Vector2(1,1));
-
+        //Gizmos.DrawCube(new Vector3(transform.position.x + moveInputX.Variable.Value, transform.position.y, transform.position.z),new Vector2(1,1));
+        //Gizmos.DrawWireSphere((Vector2)transform.position/* + Vector2.down * 1 / 2*/, checkRadius);
+        Gizmos.DrawCube((Vector2)transform.position, new Vector2(playerBoxCollider2d.bounds.size.x * 0.9f, playerBoxCollider2d.bounds.size.y + 0.5f));
     }
 }
