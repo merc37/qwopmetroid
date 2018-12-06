@@ -58,7 +58,7 @@ public class PlayerInput : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         //if(canMoveInputX.boolState == true)
         //{
@@ -115,15 +115,15 @@ public class PlayerInput : MonoBehaviour
 
         VerticalInputValue.Variable.Value = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetButton("Vertical") || Input.GetButtonDown("Vertical"))
+        if (Input.GetButtonDown("Vertical"))
         {
             VerticalInputState.boolState = true;
             PlayerMovementRestrictor(restrictedDown.boolState, restrictedUp.boolState, VerticalInputValue, VerticalInputState, canMoveInputY);
-            oldAixsValuesY = VerticalInputValue.Value;
+            oldAixsValuesY = VerticalInputValue.Variable.Value;
+            TotalMovesHandler(restrictedDown.boolState, restrictedUp.boolState, oldAixsValuesY, totalMovesDown, totalMovesUp, false);
         }
         else if (Input.GetButtonUp("Vertical"))
         {
-            TotalMovesHandler(restrictedDown.boolState, restrictedUp.boolState, oldAixsValuesY, totalMovesDown, totalMovesUp, false);
             RestrictionHandelr(restrictedDown, restrictedUp, oldAixsValuesY, totalMovesDown, totalMovesUp);
             VerticalInputState.boolState = false;
             oldAixsValuesY = 0;
@@ -131,7 +131,6 @@ public class PlayerInput : MonoBehaviour
         else
         {
             VerticalInputState.boolState = false;
-            oldAixsValuesY = 0;
         }
         #endregion
         
@@ -253,21 +252,7 @@ public class PlayerInput : MonoBehaviour
     }
     private void PlayerMovementJumpRestrictor(bool _restrictLessDir, bool _restrictGreaterDir, FloatReference directionAxis, BoolVariable moveAxisBool, BoolVariable canMoveInput, BoolVariable jumpBool)
     {
-        if(directionAxis.Value < 0)
-        {
-            if(_restrictLessDir == false)
-            {
-                canMoveInput.boolState = true;
-                moveAxisBool.boolState = true;
-            }
-            else
-            {
-                canMoveInput.boolState = false;
-                moveAxisBool.boolState = false;
-                directionAxis.Variable.Value = 0;
-            }
-        }
-        else if(directionAxis.Value > 0)
+        if(directionAxis.Value > 0)
         {
             if (_restrictGreaterDir == false)
             {
@@ -283,6 +268,21 @@ public class PlayerInput : MonoBehaviour
                 moveAxisBool.boolState = false;
                 directionAxis.Variable.Value = 0;
             }
+            
+        }
+        else if(directionAxis.Value < 0)
+        {
+            //if(_restrictLessDir == false)
+            //{
+            //    canMoveInput.boolState = true;
+            //    moveAxisBool.boolState = true;
+            //}
+            //else
+            //{
+            //    canMoveInput.boolState = false;
+            //    moveAxisBool.boolState = false;
+            //    directionAxis.Variable.Value = 0;
+            //}
         }
     }
 
@@ -303,6 +303,7 @@ public class PlayerInput : MonoBehaviour
         }
         else if(directionAxis > 0)
         {
+            Debug.Log("Checked up restricted");
             if (totalMovesGreaterDir.Value >= 1)
             {
                 _restrictGreaterDir.boolState = false;

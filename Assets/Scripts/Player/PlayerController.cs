@@ -20,23 +20,18 @@ public class PlayerController : MonoBehaviour {
     public FloatReference moveInputX;
     public BoolVariable moveInputedX;
     public FloatReference moveInputY;
-    public float oldMoveInputY;
     public BoolVariable moveInputedY;
     public BoolVariable canMoveX;
     public BoolVariable canMoveY;
     [Space]
     [Header(header: "Player Jump Related:")]
-    public int remainingJumps;
-    public FloatReference extraJumps;
     public float minJumpHeight;
     public float maxJumpHeight;
     public float halfJumpTime;
     public float maxJumpSpeed;
     public float minJumpSpeed;
-    public BoolVariable canJump;
     public BoolVariable jumpRestricted;
-    private bool isJumping;
-
+    public bool canSecondJump;
     public float fallMultiplyer = 2.5f;
     public float lowMultiplyer = 2.0f;
     [Space]
@@ -109,7 +104,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Start()
     {
-        ResetJump(true);
+        ResetJump();
         facingRight.boolState = true;
     }
 
@@ -121,7 +116,7 @@ public class PlayerController : MonoBehaviour {
         playerFallingSpeed.Variable.Value = rb2d.velocity.y;
     }
 
-    private void FixedUpdate ()
+    private void FixedUpdate()
     {
         if (canMoveX.boolState == true)
         {
@@ -138,18 +133,17 @@ public class PlayerController : MonoBehaviour {
                 }
             }
         }
-        if(canMoveY.boolState == true)
+        if (canMoveY.boolState == true)
         {
-            MovementY(moveInputY.Value, speed, canJump, isGrounded);
-        }
-        WallClimb(playerCanClimb);
+            MovementY(moveInputY.Value, speed, isGrounded);
+            WallClimb(playerCanClimb);
+        }        
     }
 
     protected void MovementX(float movementInputX, FloatReference speedToMoveX,  BoolVariable isGrounded)
     {
         //isGrounded.boolState = Physics2D.OverlapCircle((Vector2)transform.position/* + Vector2.down * 1/2*/, checkRadius, whatIsGround);
-        isGrounded.boolState = Physics2D.OverlapBox((Vector2)transform.position, new Vector2(playerBoxCollider2d.bounds.size.x * 0.9f, playerBoxCollider2d.bounds.size.y + 0.5f), 0, whatIsGround);
-        Debug.Log(isGrounded.boolState);
+        //Debug.Log(isGrounded.boolState);
         if(isGrounded.boolState == true)
         {
             wallClimbing = false;
@@ -166,49 +160,50 @@ public class PlayerController : MonoBehaviour {
         }
     }
     
-    protected void MovementY(float movementInputY, FloatReference speedToMoveY, BoolVariable canJump, BoolVariable isGrounded)
+    protected void MovementY(float movementInputY, FloatReference speedToMoveY, BoolVariable isGrounded)
     {
-        if (canJump.boolState == true)
+        //if (Physics2D.Raycast(transform.position, Vector2.down, 0.6f, whatIsGround))
+        //{
+        //    isGrounded.boolState = true;
+        //}
+        //else
+        //{
+        //    isGrounded.boolState = false;
+        //}
+        isGrounded.boolState = Physics2D.OverlapBox((Vector2)transform.position, new Vector2(playerBoxCollider2d.bounds.size.x * 0.99f, playerBoxCollider2d.bounds.size.y + 0.05f), 0, whatIsGround);
+        if (wallClimbing == false && jumpRestricted.boolState == false)
         {
-            FastFall();
-            rb2d.gravityScale = 1;
-            if(wallClimbing  == false && jumpRestricted.boolState == false)
+            if (moveInputedY.boolState == true)
             {
-                Jump();
+                if (isGrounded.boolState == true)
+                {
+                    rb2d.velocity = new Vector2(rb2d.velocity.x, maxJumpSpeed);
+                }
+                else if (canSecondJump == true)
+                {
+                    rb2d.velocity = new Vector2(rb2d.velocity.x, maxJumpSpeed);
+                    canSecondJump = false;
+                }
+            }
+            else if (isGrounded.boolState == false && moveInputedY.boolState == false)
+            {
+                StopJump();
+            }
+            if (Physics2D.OverlapCircle((Vector2)transform.position + Vector2.up * checkForCeelingAtHeight, checkRadius, whatIsCelling) && rb2d.velocity.y > 0)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
             }
         }
-        if (Physics2D.OverlapCircle((Vector2)transform.position + Vector2.up * checkForCeelingAtHeight, checkRadius, whatIsCelling) && rb2d.velocity.y >  0)
-        {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
-            ResetJump(false);
-        }
+        FastFall();
     }
 
-    void Jump()
+    private void StopJump()
     {
-        if (isGrounded.boolState == true)
+        if (rb2d.velocity.y > minJumpSpeed)
         {
-            //Debug.Log("Reseting the jump");
-            ResetJump(true);
-        }
-        if (((Input.GetButtonDown("Vertical") && Input.GetAxisRaw("Vertical") > 0) && remainingJumps > 0))
-        {
-            Debug.Log("Is Jumping");
-            rb2d.velocity = new Vector2(rb2d.velocity.x, maxJumpSpeed);
-            isJumping = true;
-            oldMoveInputY = moveInputY.Value;
+            rb2d.velocity = new Vector2(rb2d.velocity.x, minJumpSpeed);
         }
 
-        if (Input.GetButtonUp("Vertical") && oldMoveInputY > 0)
-        {
-            remainingJumps--;
-            if (rb2d.velocity.y > minJumpSpeed)
-            {
-                rb2d.velocity = new Vector2(rb2d.velocity.x, minJumpSpeed);
-            }
-            isJumping = false;
-            oldMoveInputY = 0;
-        }
     }
 
     private void WallClimb(BoolVariable playerCanClimb)
@@ -220,12 +215,12 @@ public class PlayerController : MonoBehaviour {
             {
                 if (isGrounded.boolState == false && rb2d.velocity.y < 0)
                 {
-                    if (Input.GetButtonDown("Vertical") && Input.GetButton("Horizontal") && jumpRestricted.boolState == false)
+                    if (moveInputedY.boolState == true && moveInputedX.boolState == true && jumpRestricted.boolState == false)
                     {
                         rb2d.velocity = new Vector2(wallLeapXSpeed * -moveInputX.Variable.Value, wallJumpYSpeed);
                         wallClimbing = true;
                     }
-                    else if (Input.GetButton("Horizontal"))
+                    else if (moveInputedX.boolState == true)
                     {
                         rb2d.velocity = new Vector2(rb2d.velocity.x, wallSlideSpeed);
                         wallClimbing = true;
@@ -251,16 +246,16 @@ public class PlayerController : MonoBehaviour {
     {
         if(rb2d.velocity.y > 0)
         {
-            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplyer - 1) * Time.deltaTime;
+            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (lowMultiplyer) * Time.deltaTime;
         }
         if (rb2d.velocity.y < 0)
         {
-            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplyer - 1) * Time.deltaTime;
+            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplyer) * Time.deltaTime;
         }
-        else if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0)
-        {
-            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (lowMultiplyer - 1) * Time.deltaTime;
-        }
+        //else if (Input.GetButtonUp("Jump") && rb2d.velocity.y > 0)
+        //{
+        //    rb2d.velocity += Vector2.up * Physics2D.gravity.y * (lowMultiplyer - 1) * Time.deltaTime;
+        //}
     }
 
     private void BounceBack()
@@ -347,25 +342,18 @@ public class PlayerController : MonoBehaviour {
         transform.localScale = scaler;
     }
 
-    private void ResetJump(bool fullReset)
+    private void ResetJump()
     {
-        if (fullReset)
-        {
-            remainingJumps = (int)extraJumps.Variable.Value + 1;
-            isJumping = false;
-        }
-        else
-        {
-            isJumping = false;
-        }
+        canSecondJump = false;
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         //Gizmos.DrawWireCube(transform.position, transform.lossyScale * 2);
         //Gizmos.DrawWireSphere((Vector2)transform.position + Vector2.up * checkForCeelingAtHeight, checkRadius);
         //Gizmos.DrawCube(new Vector3(transform.position.x + moveInputX.Variable.Value, transform.position.y, transform.position.z),new Vector2(1,1));
         //Gizmos.DrawWireSphere((Vector2)transform.position/* + Vector2.down * 1 / 2*/, checkRadius);
-        Gizmos.DrawCube((Vector2)transform.position, new Vector2(playerBoxCollider2d.bounds.size.x * 0.9f, playerBoxCollider2d.bounds.size.y + 0.5f));
+        //Gizmos.DrawCube((Vector2)transform.position, new Vector2(playerBoxCollider2d.bounds.size.x * 0.9f, playerBoxCollider2d.bounds.size.y + 0.05f));
+        Debug.DrawLine(transform.position, transform.position + Vector3.down * 0.6f, Color.red);
     }
 }

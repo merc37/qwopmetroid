@@ -13,23 +13,28 @@ public class SpecialMoves : MonoBehaviour {
     public GameObject player;
 
     private Dash dashAbility;
-    
+    private bool secondJump;
+    private bool isGrounded;
     //private bool canDoubleJump = false;
 
     private void Awake()
     {
         dashAbility = player.GetComponent<Dash>();
-
+        secondJump = player.GetComponent<PlayerController>().canSecondJump;
+        isGrounded = player.GetComponent<PlayerController>().isGrounded.boolState;
         dashAbility.enabled = false;
- 
     }
 
     void Start () {
-	}
+        ChecktToActivate();
+    }
 	
 	void Update () {
+
+        isGrounded = player.GetComponent<PlayerController>().isGrounded.boolState;
+        secondJump = player.GetComponent<PlayerController>().canSecondJump;
         ChecktToActivate();
-	}
+    }
 
     protected void ChecktToActivate()
     {
@@ -43,17 +48,21 @@ public class SpecialMoves : MonoBehaviour {
         }
         if (playerDoubleJump.boolState == true)
         {
-            Debug.Log("Set extra jumps to 1");
-            extraJumps.Variable.Value = 1;
+            //Debug.Log("Set extra jumps to 1");
+            if(isGrounded == true)
+            {
+                //Debug.Log("Player is Grounded");
+                player.GetComponent<PlayerController>().canSecondJump = true;
+            }
         }
         else
         {
-            Debug.Log("Set extra jumps to 0");
-            extraJumps.Variable.Value = 0;
+            //Debug.Log("Set extra jumps to 0");
+            player.GetComponent<PlayerController>().canSecondJump = false;
         }
         if(playerWallClimb.boolState == true)
         {
-            Debug.Log("Can wall Climb");
+            //Debug.Log("Can wall Climb");
         }
         else
         {

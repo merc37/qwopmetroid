@@ -10,7 +10,7 @@ public class CoinPickUp : MonoBehaviour {
     {
         if (collider.CompareTag("Player"))
         {
-            Debug.Log("Coin Picked UP");
+            //Debug.Log("Coin Picked UP");
             playerMoney.Variable.Value++;
             Destroy(gameObject);
         }

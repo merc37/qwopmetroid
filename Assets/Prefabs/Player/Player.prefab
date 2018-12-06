@@ -456,6 +456,22 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 24a726c0e488e2b49a07e3cf6f1c88e2, type: 2}
+  leftMovement:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  rightMovement:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  downMovement:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  upMovement:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
   playerMoney:
     UseConstant: 0
     ConstantValue: 0
@@ -496,22 +512,16 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 5ba5ff5d09ddc5b4991eb1aaaab9c787, type: 2}
-  oldMoveInputY: 0
   moveInputedY: {fileID: 11400000, guid: be4fc842b7defa44caa9197ea57bd460, type: 2}
   canMoveX: {fileID: 11400000, guid: d34bbf4dc74c54542899ad88115ee9a6, type: 2}
   canMoveY: {fileID: 11400000, guid: 76d376216e79cd547a417ce6fc173e5c, type: 2}
-  remainingJumps: 0
-  extraJumps:
-    UseConstant: 0
-    ConstantValue: 1
-    Variable: {fileID: 11400000, guid: 3a30e31c527aed642b49757a0e5a8057, type: 2}
-  minJumpHeight: 3
-  maxJumpHeight: 6.5
+  minJumpHeight: 7
+  maxJumpHeight: 12
   halfJumpTime: 1
-  maxJumpSpeed: 13
-  minJumpSpeed: 6
-  canJump: {fileID: 11400000, guid: 537574257c985ba44be9df206dd5aebc, type: 2}
+  maxJumpSpeed: 24
+  minJumpSpeed: 14
   jumpRestricted: {fileID: 11400000, guid: f15c12777cfd5c544b8a270e2b268f51, type: 2}
+  canSecondJump: 1
   fallMultiplyer: 2.5
   lowMultiplyer: 2
   currentWeapon: {fileID: 11400000, guid: 98584948e544d974599267ae5731dd3f, type: 2}
@@ -524,7 +534,7 @@ MonoBehaviour:
   canOpenMemoryPannel: {fileID: 11400000, guid: 4e6e61d6258e39741b86ad1263247ec2,
     type: 2}
   isGrounded: {fileID: 11400000, guid: b96036d2298a6a14bbeab4359a22bf49, type: 2}
-  checkRadius: 0.51
+  checkRadius: 0.5
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
@@ -542,7 +552,7 @@ MonoBehaviour:
   wallLeapXSpeed: 25
   wallJumpYSpeed: 12
   knockBackX: 10
-  knockBackY: 20
+  knockBackY: 15
   knockBackTime: 0.2
   playerX:
     UseConstant: 0

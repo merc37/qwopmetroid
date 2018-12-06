@@ -24,7 +24,7 @@ public class spikes : MonoBehaviour {
     {
         if (collision.collider.CompareTag("Player"))
         {
-            Debug.Log("Collided with player reducing Player Health");
+            //Debug.Log("Collided with player reducing Player Health");
             playerHealth.Variable.Value -= damageAmount - playerDamageReduction.Variable.Value * damageAmount;
             //playerHealthChanged.boolState = true;
         }

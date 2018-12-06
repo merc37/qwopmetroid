@@ -16,8 +16,14 @@ public class HeartsManager : MonoBehaviour {
 
     private void OnValidate()
     {
-        hearts = heartsParent.GetComponentsInChildren<Image>();
+        //hearts = heartsParent.GetComponentsInChildren<Image>();
         //UpdateHeartsUI();
+    }
+
+    private void Start()
+    {
+        hearts = heartsParent.GetComponentsInChildren<Image>();
+        UpdateHeartsUI();
     }
 
     private void Update()
