@@ -172,7 +172,7 @@ public class PlayerController : MonoBehaviour {
         {
             FastFall();
             rb2d.gravityScale = 1;
-            if(wallClimbing  == false)
+            if(wallClimbing  == false && jumpRestricted.boolState == false)
             {
                 Jump();
             }
@@ -191,21 +191,16 @@ public class PlayerController : MonoBehaviour {
             //Debug.Log("Reseting the jump");
             ResetJump(true);
         }
-        if (((Input.GetButtonDown("Vertical") && Input.GetAxisRaw("Vertical") > 0) && remainingJumps > 0) && jumpRestricted.boolState == false)
+        if (((Input.GetButtonDown("Vertical") && Input.GetAxisRaw("Vertical") > 0) && remainingJumps > 0))
         {
             Debug.Log("Is Jumping");
-            //Debug.Log("moveInputY was Greater than 0");
-            //Debug.Log("Doing this from remainingExtrajumps");
             rb2d.velocity = new Vector2(rb2d.velocity.x, maxJumpSpeed);
             isJumping = true;
             oldMoveInputY = moveInputY.Value;
-            //Debug.Log(remainingJumps);
         }
 
         if (Input.GetButtonUp("Vertical") && oldMoveInputY > 0)
         {
-            //Debug.Log("oldMoveInputY was Greater than 0");
-            //Debug.Log("Doing this from jump button up");
             remainingJumps--;
             if (rb2d.velocity.y > minJumpSpeed)
             {

@@ -43,10 +43,12 @@ public class SpecialMoves : MonoBehaviour {
         }
         if (playerDoubleJump.boolState == true)
         {
+            Debug.Log("Set extra jumps to 1");
             extraJumps.Variable.Value = 1;
         }
         else
         {
+            Debug.Log("Set extra jumps to 0");
             extraJumps.Variable.Value = 0;
         }
         if(playerWallClimb.boolState == true)
