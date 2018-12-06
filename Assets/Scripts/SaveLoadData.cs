@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveData : MonoBehaviour {
+public class SaveLoadData : MonoBehaviour {
     [Header("Save data combiner")]
     [SerializeField]
     private const string DATA_SEPERATOR = "#";
@@ -40,7 +40,7 @@ public class SaveData : MonoBehaviour {
             playerData = new SavedPlayerData(playerPosition, playerHealth.Variable.Value, playerMoney.Variable.Value, playerItems.itemAndStackNumber);
             string savedString = playerData.SavedString(DATA_SEPERATOR);
             SavePlayerData(savedString);
-            SaveFileNumber(saveFileNumber);
+            SaveFileNumberSet(saveFileNumber);
             Debug.Log("Saved" + saveFileNumber);
         }
         if (Input.GetKeyDown(KeyCode.P))
@@ -68,14 +68,19 @@ public class SaveData : MonoBehaviour {
 
     private void SetPlayerDataFromLoad(string[] loadedStrings)
     {
+        #region Set(health, money, position)
+        // Set playerhealth and player gold
         playerHealth.Variable.Value = float.Parse(loadedStrings[0]);
         playerMoney.Variable.Value = float.Parse(loadedStrings[1]);
         //Debug.Log("completed health and money moving to player Position");
 
+        //Set player position
         string[] playerPositionString = loadedStrings[2].Split(',');
         transform.position = new Vector3(float.Parse(playerPositionString[0].Split('(')[1]), float.Parse(playerPositionString[1].Split(')')[0]));
-        Debug.Log("Completed Player Position" + playerX.Value + "" + playerY.Value + "moving to player Items");
+        //Debug.Log("Completed Player Position" + playerX.Value + "" + playerY.Value + "moving to player Items");
+        #endregion
 
+        //Set player inventory
         string[] playerInventoryList = loadedStrings[3].Split(':');
         for (int i = 0; i < playerInventoryList.Length; i++)
         {
@@ -91,11 +96,13 @@ public class SaveData : MonoBehaviour {
         playerItems.LoadingItems();
     }
 
-    private void SaveFileNumber(int saveFileNumber)
+    //Sets the save file number
+    private void SaveFileNumberSet(int saveFileNumber)
     {
         File.WriteAllText(Application.dataPath + "/Saves/save.txt", saveFileNumber.ToString());
     }
 
+    //Gets the number of the save file
     private int SaveFileNumberGet()
     {
         int returnFileNumber = 0;
@@ -136,6 +143,8 @@ public class SavedPlayerData
         SaveInventory(inventoryList);
     }
 
+    //converts and saves Item data from inventory as string so that it can be saved
+    #region Saving Inventory(Vector2[] playerInventoryList)
     private void SaveInventory(Vector2[] playerInventoryList)
     {
         int numOfItems = playerInventoryList.Length;
@@ -147,6 +156,7 @@ public class SavedPlayerData
         inventoryString = ItemListToString(this.inventoryList);
     }
 
+    
     private string ItemListToString(Vector2[] playerInventoryList)
     {
         string itemDataString = "";
@@ -156,7 +166,9 @@ public class SavedPlayerData
         }
         return itemDataString;
     }
+    #endregion
 
+    //Returns the data as a string by seperating them by a data seperator
     public string SavedString(string dataSeperator)
     {
         string[] saveContent = {

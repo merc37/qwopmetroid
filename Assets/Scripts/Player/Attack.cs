@@ -152,23 +152,23 @@ public class Attack : MonoBehaviour {
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        if(currentWeapon != null)
-        {
-            if (currentWeapon.ColliderType == ColliderType.Circle)
-            {
-                Gizmos.DrawWireSphere(AttackPosition(playerAxisInputs, playerAxisBools), currentWeapon.AttackRadius.Value);
-            }
-            else
-            {
-                Gizmos.DrawWireCube(AttackPosition(playerAxisInputs, playerAxisBools), new Vector3(currentWeapon.AttackRangeX.Value, currentWeapon.AttackRangeY.Value, 0));
-            }
-        }
-        else
-        {
-            Gizmos.DrawSphere(AttackPosition(playerAxisInputs, playerAxisBools), 0.5f);
-        }
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.color = Color.red;
+    //    if(currentWeapon != null)
+    //    {
+    //        if (currentWeapon.ColliderType == ColliderType.Circle)
+    //        {
+    //            Gizmos.DrawWireSphere(AttackPosition(playerAxisInputs, playerAxisBools), currentWeapon.AttackRadius.Value);
+    //        }
+    //        else
+    //        {
+    //            Gizmos.DrawWireCube(AttackPosition(playerAxisInputs, playerAxisBools), new Vector3(currentWeapon.AttackRangeX.Value, currentWeapon.AttackRangeY.Value, 0));
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Gizmos.DrawSphere(AttackPosition(playerAxisInputs, playerAxisBools), 0.5f);
+    //    }
+    //}
 }
