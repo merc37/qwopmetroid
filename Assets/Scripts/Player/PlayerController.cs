@@ -78,6 +78,8 @@ public class PlayerController : MonoBehaviour {
 
     private BoxCollider2D playerBoxCollider2d;
 
+    private bool inputJump = false;
+
     private void OnValidate()
     {
         if (downSlashJumpTimeToFall != 0)
@@ -114,17 +116,32 @@ public class PlayerController : MonoBehaviour {
         playerX.Variable.Value = transform.position.x;
         playerY.Variable.Value = transform.position.y;
         playerFallingSpeed.Variable.Value = rb2d.velocity.y;
-    }
 
-    private void FixedUpdate()
-    {
+        //Setting jumpInput
+        #region SetJumpInput
+        if (Input.GetButtonDown("Vertical") && Input.GetAxisRaw("Vertical") > 0)
+        {
+            inputJump = true;
+        }
+        else if (Input.GetButton("Vertical"))
+        {
+            inputJump = false;
+        }
+
+        else if (Input.GetButtonUp("Vertical"))
+        {
+            inputJump = false;
+        }
+        #endregion
+        //Controlling Movement
+        #region Movement
         if (canMoveX.boolState == true)
         {
             MovementX(moveInputX.Value, speed, isGrounded);
         }
         else
         {
-            if(playerKnockedBack == true)
+            if (playerKnockedBack == true)
             {
                 if (Time.time >= knockbackCoolDown)
                 {
@@ -137,7 +154,8 @@ public class PlayerController : MonoBehaviour {
         {
             MovementY(moveInputY.Value, speed, isGrounded);
             WallClimb(playerCanClimb);
-        }        
+        }
+        #endregion
     }
 
     protected void MovementX(float movementInputX, FloatReference speedToMoveX,  BoolVariable isGrounded)
@@ -162,18 +180,10 @@ public class PlayerController : MonoBehaviour {
     
     protected void MovementY(float movementInputY, FloatReference speedToMoveY, BoolVariable isGrounded)
     {
-        //if (Physics2D.Raycast(transform.position, Vector2.down, 0.6f, whatIsGround))
-        //{
-        //    isGrounded.boolState = true;
-        //}
-        //else
-        //{
-        //    isGrounded.boolState = false;
-        //}
         isGrounded.boolState = Physics2D.OverlapBox((Vector2)transform.position, new Vector2(playerBoxCollider2d.bounds.size.x * 0.99f, playerBoxCollider2d.bounds.size.y + 0.05f), 0, whatIsGround);
         if (wallClimbing == false && jumpRestricted.boolState == false)
         {
-            if (moveInputedY.boolState == true)
+            if (inputJump == true)
             {
                 if (isGrounded.boolState == true)
                 {
@@ -185,7 +195,7 @@ public class PlayerController : MonoBehaviour {
                     canSecondJump = false;
                 }
             }
-            else if (isGrounded.boolState == false && moveInputedY.boolState == false)
+            else if (isGrounded.boolState == false && inputJump == false)
             {
                 StopJump();
             }
@@ -215,7 +225,7 @@ public class PlayerController : MonoBehaviour {
             {
                 if (isGrounded.boolState == false && rb2d.velocity.y < 0)
                 {
-                    if (moveInputedY.boolState == true && moveInputedX.boolState == true && jumpRestricted.boolState == false)
+                    if (inputJump == true && moveInputedX.boolState == true && jumpRestricted.boolState == false)
                     {
                         rb2d.velocity = new Vector2(wallLeapXSpeed * -moveInputX.Variable.Value, wallJumpYSpeed);
                         wallClimbing = true;
@@ -349,11 +359,8 @@ public class PlayerController : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
-        //Gizmos.DrawWireCube(transform.position, transform.lossyScale * 2);
+        Gizmos.color = new Color(1, 0, 0, 0.5f);
         //Gizmos.DrawWireSphere((Vector2)transform.position + Vector2.up * checkForCeelingAtHeight, checkRadius);
-        //Gizmos.DrawCube(new Vector3(transform.position.x + moveInputX.Variable.Value, transform.position.y, transform.position.z),new Vector2(1,1));
-        //Gizmos.DrawWireSphere((Vector2)transform.position/* + Vector2.down * 1 / 2*/, checkRadius);
-        //Gizmos.DrawCube((Vector2)transform.position, new Vector2(playerBoxCollider2d.bounds.size.x * 0.9f, playerBoxCollider2d.bounds.size.y + 0.05f));
-        Debug.DrawLine(transform.position, transform.position + Vector3.down * 0.6f, Color.red);
+        Gizmos.DrawCube((Vector2)transform.position, new Vector2(playerBoxCollider2d.bounds.size.x * 0.9f, playerBoxCollider2d.bounds.size.y + 0.05f));
     }
 }
