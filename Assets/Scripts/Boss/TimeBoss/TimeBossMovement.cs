@@ -14,6 +14,9 @@ public class TimeBossMovement : MonoBehaviour {
 
     private Collider2D collider2d;
 
+    public List<Vector2> edgePoints1 = new List<Vector2>();
+    public List<Vector2> edgePoints2 = new List<Vector2>();
+
 	// Use this for initialization
 	void Start () {
         collider2d = GetComponent<Collider2D>();
@@ -46,6 +49,8 @@ public class TimeBossMovement : MonoBehaviour {
         else
         {
             Vector3[] edgePoints = EdgePoints(hitInfo);
+            edgePoints1.Add(edgePoints[0]);
+            edgePoints2.Add(edgePoints[1]);
             for (int i = 0; i < edgePoints.Length; i++)
             {
                 Instantiate(edgePointPrefab, edgePoints[i], Quaternion.identity, instantiatedEdges);
