@@ -28,16 +28,16 @@ public class TimeBossMovement : MonoBehaviour {
             {
                 instObj.GetComponent<DestroyObject>().Destroy();
             }
-            FindVisiblePointTo(target, gameObject.transform);
+            FindVisiblePointTo(target, gameObject.transform.position);
             playermoved = false;
         }
     }
 
-    private void FindVisiblePointTo(Transform target, Transform caster)
+    private void FindVisiblePointTo(Transform target, Vector3 caster)
     {
-        Vector2 direction = (target.position - caster.position).normalized;
-        RaycastHit2D hitInfo = Physics2D.Raycast((Vector2)caster.position + CastingPosition(direction), direction, whatIsObstacle);
-        Debug.DrawRay((Vector2)caster.position + CastingPosition(direction), direction, Color.cyan);
+        Vector2 direction = (target.position - caster).normalized;
+        RaycastHit2D hitInfo = Physics2D.Raycast((Vector2)caster + CastingPosition(direction), direction, whatIsObstacle);
+        Debug.DrawRay((Vector2)caster + CastingPosition(direction), direction, Color.cyan);
 
         if (hitInfo.collider.CompareTag("Player"))
         {
@@ -49,6 +49,7 @@ public class TimeBossMovement : MonoBehaviour {
             for (int i = 0; i < edgePoints.Length; i++)
             {
                 Instantiate(edgePointPrefab, edgePoints[i], Quaternion.identity, instantiatedEdges);
+                FindVisiblePointTo(target, edgePoints[i]);
             }
         }
     }
