@@ -11,11 +11,13 @@ public class TimeBossMovement : MonoBehaviour {
     public GameObject edgePointPrefab;
     public bool playermoved = false;
     public Transform instantiatedEdges;
-
+    public int halfTree = 0;
     private Collider2D collider2d;
 
-    public List<Vector2> edgePoints1 = new List<Vector2>();
-    public List<Vector2> edgePoints2 = new List<Vector2>();
+    public List<Vector2> rightPoints = new List<Vector2>();
+    public List<Vector2> leftPoints = new List<Vector2>();
+    public List<Vector2> rightExtremePath = new List<Vector2>();
+    public List<Vector2> leftExtremePath = new List<Vector2>();
 
 	// Use this for initialization
 	void Start () {
@@ -27,6 +29,9 @@ public class TimeBossMovement : MonoBehaviour {
 	void Update () {
         if (playermoved)
         {
+            halfTree = 0;
+            rightPoints.Clear();
+            leftPoints.Clear();
             foreach (Transform instObj in instantiatedEdges)
             {
                 instObj.GetComponent<DestroyObject>().Destroy();
@@ -44,19 +49,48 @@ public class TimeBossMovement : MonoBehaviour {
 
         if (hitInfo.collider.CompareTag("Player"))
         {
+            List<List<Vector2>> extremePaths = ExtremePaths(halfTree, rightPoints, leftPoints);
+            rightExtremePath = extremePaths[0];
+            leftExtremePath = extremePaths[1];
             Debug.Log("Player Found");
         }
         else
         {
+            halfTree++;
             Vector3[] edgePoints = EdgePoints(hitInfo);
-            edgePoints1.Add(edgePoints[0]);
-            edgePoints2.Add(edgePoints[1]);
+            rightPoints.Add(edgePoints[0]);
+            leftPoints.Add(edgePoints[1]);
             for (int i = 0; i < edgePoints.Length; i++)
             {
                 Instantiate(edgePointPrefab, edgePoints[i], Quaternion.identity, instantiatedEdges);
                 FindVisiblePointTo(target, edgePoints[i]);
             }
         }
+    }
+
+    private List<List<Vector2>> ExtremePaths(int halfTree, List<Vector2> rightPoints, List<Vector2> leftPoints)
+    {
+        List<Vector2> extremeRightPath = new List<Vector2>();
+        List<Vector2> extremeLeftPath = new List<Vector2>();
+
+        for (int i = 0; i < halfTree/2; i++)
+        {
+            extremeRightPath.Add(rightPoints[i]);
+            extremeLeftPath.Add(leftPoints[i]);
+        }
+
+        List<List<Vector2>> extremePaths = new List<List<Vector2>>();
+        extremePaths.Add(extremeRightPath);
+        extremePaths.Add(extremeLeftPath);
+
+        return extremePaths;
+    }
+
+    private List<Vector2> PathCreator(List<Vector2> edgePoints1, List<Vector2> edgePoints2, int numberOfObstacles)
+    {
+        List<Vector2> path = new List<Vector2>();
+
+        return path;
     }
 
     private void DebugCasting(Transform target, List<GameObject> obstacles)
