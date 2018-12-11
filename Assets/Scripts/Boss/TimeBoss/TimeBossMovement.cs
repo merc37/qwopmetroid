@@ -73,7 +73,7 @@ public class TimeBossMovement : MonoBehaviour {
         List<Vector2> extremeRightPath = new List<Vector2>();
         List<Vector2> extremeLeftPath = new List<Vector2>();
 
-        for (int i = 0; i < halfTree/2; i++)
+        for (int i = 0; i < halfTree/2 || i == 0; i++)
         {
             extremeRightPath.Add(rightPoints[i]);
             extremeLeftPath.Add(leftPoints[i]);
