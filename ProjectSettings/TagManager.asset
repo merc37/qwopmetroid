@@ -13,6 +13,7 @@ TagManager:
   - Chest
   - Room
   - Ability
+  - TimeBoss
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - Walls
   - Ceiling
   - TimeBoss
-  - 
+  - BeamCollider
   - 
   - 
   - 
